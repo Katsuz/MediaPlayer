@@ -1,0 +1,123 @@
+﻿<Window x:Class="MediaPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaPlayer"
+        mc:Ignorable="d"
+        Title="Media Player" Height="700" Width="1050" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" AllowsTransparency="True"  WindowStyle="None" Background="Transparent">
+    <Border Background="White" CornerRadius="20" MouseDown="Border_MouseDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="600"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--Function Exit-->
+            <Border Grid.Row="0" Grid.ColumnSpan="2" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Click="Exit_Click" Style="{StaticResource ExitButton }">
+                        <Icon:PackIconMaterial Kind="Close"/>
+                    </Button>
+                </StackPanel> 
+            </Border>
+            
+            <!--Menu-->
+            <Border Background="White" CornerRadius="20 0 0 40" Grid.Column="0" Grid.Row="1">
+                <StackPanel>
+                    <!--Ellipses-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="63 10 0 0">
+                        <Ellipse Fill="#ff6258" Width="10" Height="10"/>
+                        <Ellipse Fill="#ffbf2f" Width="10" Height="10" Margin="7 0"/>
+                        <Ellipse Fill="#2acb42 " Width="10" Height="10"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Menu" Style="{StaticResource menuTitle}"/>
+
+                        <Button Style="{StaticResource menuButton}" >
+                            <Grid>
+                                <TextBlock Text="Open files" Margin="0 0 0 2"/>
+                                <Icon:PackIconMaterial Kind="File" Margin="125,0,0,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <Grid>
+                                <TextBlock Text="RecentPlayed" Margin="0 0 0 2"/>
+                                <Icon:PackIconMaterial Kind="Clock" Margin="125,0,0,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <Grid>
+                                <TextBlock Text="Now Playing" Margin="0 0 0 2"/>
+                                <Icon:PackIconMaterial Kind="CircleBoxOutline" Margin="125,0,0,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel >
+                        <Grid>
+                            <TextBlock Text="Playlists" Style="{StaticResource menuTitle2}"/>
+                            <Icon:PackIconMaterial Kind="PlaylistPlus" Margin="170,0,0,0" VerticalAlignment="Center" 
+                                FontWeight="Bold" FontSize="22" Foreground="#666666"                 
+                            />
+                        </Grid>
+                        <ListBoxItem>
+                            
+                        </ListBoxItem>
+                    </StackPanel>
+                    
+                </StackPanel>
+            </Border>
+            
+            <!--Player-->
+            <Border CornerRadius="15" Grid.Row="2" Grid.ColumnSpan="2" Background="#03bf69" >
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Style="{StaticResource playerButton}" Margin="50 0 0 0">
+                        <Icon:PackIconMaterial Kind="SkipPrevious" Style="{StaticResource playerButtonIcon}"/>
+                    </Button>
+
+                    <Button Style="{StaticResource playerButton}">
+                        <Icon:PackIconMaterial Kind="Pause" Style="{StaticResource playerButtonIcon}"/>
+                    </Button>
+
+                    <Button Style="{StaticResource playerButton}">
+                        <Icon:PackIconMaterial Kind="SkipNext" Style="{StaticResource playerButtonIcon}"/>
+                    </Button>
+                    
+                    <!--Slider-->
+                    <TextBlock x:Name="currentPosition" Text="1:23" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
+                    <Slider Style="{DynamicResource SliderStyle1}" x:Name="slider" IsSelectionRangeEnabled="True" VerticalAlignment="Center" Value="5" Width="350" SelectionEnd="{Binding ElementName=slider,Path=Value}"/>
+                    <TextBlock x:Name="totalTime" d:Text="1:23" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
+
+                    <Button Style="{StaticResource playerButton}">
+                        <Icon:PackIconMaterial Kind="Shuffle" Style="{StaticResource playerButtonIcon}"/>
+                    </Button>
+
+                    <Button Style="{StaticResource playerButton}">
+                        <Icon:PackIconMaterial Kind="Repeat" Style="{StaticResource playerButtonIcon}"/> 
+                    </Button>
+                    
+                    <!--Volume-->
+                    <Button Style="{StaticResource playerButton}">
+                        <Icon:PackIconMaterial Kind="VolumeHigh" Style="{StaticResource playerButtonIcon}"/>
+                    </Button>
+                    <Slider Style="{DynamicResource SliderStyle1}" x:Name="sliderVolume" IsSelectionRangeEnabled="True" VerticalAlignment="Center" Value="5" Width="120" SelectionEnd="{Binding ElementName=sliderVolume,Path=Value}"/>
+                </StackPanel>
+            </Border>
+            
+            <!--Main Display-->
+            <Border Grid.Row="1" Grid.Column="1" Background="Tan">
+                
+            </Border>
+        </Grid> 
+    </Border>
+</Window>
