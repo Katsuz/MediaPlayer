@@ -42,22 +42,20 @@
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="Menu" Style="{StaticResource menuTitle}"/>
-
                         <Button Style="{StaticResource menuButton}" x:Name="HomeBtn" Click="ButtonHome_Click" >
                             <Grid>
                                 <TextBlock Text="Home" Margin="0 0 0 2"/>
                                 <Icon:PackIconMaterial Kind="Home" Margin="125,0,0,0" VerticalAlignment="Center"/>
                             </Grid>
                         </Button>
-                        
                         <Button Style="{StaticResource menuButton}"  x:Name="OpenFileBtn" Click="OpenFile_Clicked">
-                            <Grid>
-                                <TextBlock Text="Open files" Margin="0 0 0 2"/>
-                                <Icon:PackIconMaterial Kind="File" Margin="125,0,0,0" VerticalAlignment="Center"/>
-                            </Grid>
-                        </Button>
+                                <Grid>
+                                    <TextBlock Text="Open files" Margin="0 0 0 2"/>
+                                    <Icon:PackIconMaterial Kind="File" Margin="125,0,0,0" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Button>
 
-                        <Button Style="{StaticResource menuButton}" x:Name="RecentPlayedBtn" Click="BtnRecentPlayed_Click">
+                            <Button Style="{StaticResource menuButton}" x:Name="RecentPlayedBtn" Click="BtnRecentPlayed_Click">
                             <Grid>
                                 <TextBlock Text="RecentPlayed" Margin="0 0 0 2"/>
                                 <Icon:PackIconMaterial Kind="Clock" Margin="125,0,0,0" VerticalAlignment="Center"/>
@@ -72,12 +70,14 @@
                         </Button>
                     </StackPanel>
                     <StackPanel >
-                        <Grid>
+                        <StackPanel Orientation="Horizontal" Name="Playlist">
                             <TextBlock Text="Playlists" Style="{StaticResource menuTitle2}"/>
-                            <Icon:PackIconMaterial Kind="PlaylistPlus" Margin="170,0,0,0" VerticalAlignment="Center" 
-                                FontWeight="Bold" FontSize="22" Foreground="#666666"                 
-                            />
-                        </Grid>
+                            <Button  Margin="40,0,0,0" Background="Transparent" Width="50" >
+                                <Icon:PackIconMaterial Kind="PlaylistPlus" VerticalAlignment="Center" 
+                                FontWeight="Bold" FontSize="22" Foreground="#666666"/>
+                            </Button>
+                            
+                        </StackPanel>
                         <ListBoxItem>
                             
                         </ListBoxItem>

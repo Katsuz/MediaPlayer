@@ -1,27 +1,3 @@
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MediaPlayer.exe.config
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MediaPlayer.exe
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MediaPlayer.pdb
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.AssemblyReference.cache
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.SuggestedBindingRedirects.cache
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MainWindow.g.cs
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\App.g.cs
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer_MarkupCompile.cache
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer_MarkupCompile.lref
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MainWindow.baml
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.g.resources
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.Properties.Resources.resources
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.GenerateResource.cache
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.CoreCompileInputs.cache
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.exe
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.pdb
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Core.dll
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Material.dll
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Core.pdb
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Core.xml
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Material.pdb
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Material.xml
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.CopyComplete
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\App.baml
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MediaPlayer.exe.config
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MediaPlayer.exe
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MediaPlayer.pdb
@@ -34,6 +10,7 @@ C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Materia
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.csproj.AssemblyReference.cache
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.csproj.SuggestedBindingRedirects.cache
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\App.baml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\AddPlaylist.g.cs
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MainWindow.g.cs
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\Home.g.cs
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\NowPlaying.g.cs
@@ -42,6 +19,7 @@ C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\RecentPlayed.g.cs
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\App.g.cs
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer_MarkupCompile.cache
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer_MarkupCompile.lref
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\AddPlaylist.baml
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MainWindow.baml
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\Home.baml
 C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\NowPlaying.baml
