@@ -22,3 +22,13 @@ E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MahApp
 E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Material.xml
 E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.CopyComplete
 E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\App.baml
+E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\View\Home.g.cs
+E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\View\NowPlaying.g.cs
+E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\View\Playlist.g.cs
+E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\View\RecentPlayed.g.cs
+E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\View\Home.baml
+E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\View\NowPlaying.baml
+E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\View\Playlist.baml
+E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\View\RecentPlayed.baml
+E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\AddPlaylist.g.cs
+E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\AddPlaylist.baml

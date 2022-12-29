@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediaPlayer.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,26 @@ namespace MediaPlayer
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void AddPlayist_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new AddPlaylist();
+            //if (screen.ShowDialog() == true)
+            //{
+            //    string playlistName = AddPlaylistWindow.PLAYLISTNAME;
+            //    if (playlistName != "")
+            //    {
+            //        Playlist playlist = new Playlist(playlistName);
+            //        customplaylist.Add(playlist);
+            //    }
+            //}
+            screen.ShowDialog();
         }
     }
 }
