@@ -44,6 +44,13 @@
 
                         <Button Style="{StaticResource menuButton}" >
                             <Grid>
+                                <TextBlock Text="Home" Margin="0 0 0 2"/>
+                                <Icon:PackIconMaterial Kind="Home" Margin="125,0,0,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
+                        
+                        <Button Style="{StaticResource menuButton}" >
+                            <Grid>
                                 <TextBlock Text="Open files" Margin="0 0 0 2"/>
                                 <Icon:PackIconMaterial Kind="File" Margin="125,0,0,0" VerticalAlignment="Center"/>
                             </Grid>

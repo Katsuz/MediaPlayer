@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="MediaPlayer.View.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MediaPlayer.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="830">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Playing" Style="{StaticResource TitleDisplay}" Grid.Row="0"/>
+        <Border Grid.Row="1">
+            
+        </Border>
+        <StackPanel Grid.Row="2">
+            
+        </StackPanel>
+
+        <StackPanel Grid.Row="3">
+
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="MediaPlayer.View.NowPlaying"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MediaPlayer.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="830">
+    <StackPanel Background="White">
+        <TextBlock Text="Now Playing: " Style="{StaticResource TitleDisplay}" Margin="50 100 0 0"/>
+        <Grid Height="30" Margin="60 10 0 0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Ten bai hat" VerticalAlignment="Center" Grid.Column="0"/>
+                <TextBlock Text="Tac gia" VerticalAlignment="Center" Grid.Column="1"/>
+                <TextBlock Text="Time" VerticalAlignment="Center" Grid.Column="2"/>
+        </Grid>
+       
+        
+        <TextBlock Text="Next: " Style="{StaticResource TitleDisplay}" Margin="50 10 0 0"/>
+        <ListView Margin="60 10 0 0">
+            <DataTemplate>
+                
+            </DataTemplate>
+        </ListView>
+    </StackPanel>
+</UserControl>
