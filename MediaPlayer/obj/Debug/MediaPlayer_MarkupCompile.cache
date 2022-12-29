@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\
 MediaPlayer
 none
 false
 DEBUG;TRACE
-E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\App.xaml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\App.xaml
 5537878882
 
-102058554901
-1557988662
+9136776780
+151884602214
 MainWindow.xaml;View\Home.xaml;View\NowPlaying.xaml;View\Playlist.xaml;View\RecentPlayed.xaml;
 
-True
+False
 

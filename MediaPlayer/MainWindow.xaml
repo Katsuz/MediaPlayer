@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:MediaPlayer"
         mc:Ignorable="d"
         Title="Media Player" Height="700" Width="1050" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen" AllowsTransparency="True"  WindowStyle="None" Background="Transparent">
+        WindowStartupLocation="CenterScreen" AllowsTransparency="True"  WindowStyle="None" Background="Transparent"
+        Loaded="Window_Loaded">
     <Border Background="White" CornerRadius="20" MouseDown="Border_MouseDown">
         <Grid>
             <Grid.RowDefinitions>
@@ -42,28 +43,28 @@
                     <StackPanel>
                         <TextBlock Text="Menu" Style="{StaticResource menuTitle}"/>
 
-                        <Button Style="{StaticResource menuButton}" >
+                        <Button Style="{StaticResource menuButton}" x:Name="HomeBtn" Click="ButtonHome_Click" >
                             <Grid>
                                 <TextBlock Text="Home" Margin="0 0 0 2"/>
                                 <Icon:PackIconMaterial Kind="Home" Margin="125,0,0,0" VerticalAlignment="Center"/>
                             </Grid>
                         </Button>
                         
-                        <Button Style="{StaticResource menuButton}" >
+                        <Button Style="{StaticResource menuButton}"  x:Name="OpenFileBtn" Click="OpenFile_Clicked">
                             <Grid>
                                 <TextBlock Text="Open files" Margin="0 0 0 2"/>
                                 <Icon:PackIconMaterial Kind="File" Margin="125,0,0,0" VerticalAlignment="Center"/>
                             </Grid>
                         </Button>
 
-                        <Button Style="{StaticResource menuButton}">
+                        <Button Style="{StaticResource menuButton}" x:Name="RecentPlayedBtn" Click="BtnRecentPlayed_Click">
                             <Grid>
                                 <TextBlock Text="RecentPlayed" Margin="0 0 0 2"/>
                                 <Icon:PackIconMaterial Kind="Clock" Margin="125,0,0,0" VerticalAlignment="Center"/>
                             </Grid>
                         </Button>
 
-                        <Button Style="{StaticResource menuButton}">
+                        <Button Style="{StaticResource menuButton}" x:Name="NowPlayingBtn" Click="NowPlaying_Clicked">
                             <Grid>
                                 <TextBlock Text="Now Playing" Margin="0 0 0 2"/>
                                 <Icon:PackIconMaterial Kind="CircleBoxOutline" Margin="125,0,0,0" VerticalAlignment="Center"/>
@@ -122,9 +123,9 @@
             </Border>
             
             <!--Main Display-->
-            <Border Grid.Row="1" Grid.Column="1" Background="Tan">
+            <Grid Grid.Row="1" Grid.Column="1" Background="Tan" x:Name="MainDisplay">
                 
-            </Border>
+            </Grid>
         </Grid> 
     </Border>
 </Window>

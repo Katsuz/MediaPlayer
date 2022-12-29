@@ -22,3 +22,35 @@ E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MahApp
 E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Material.xml
 E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.CopyComplete
 E:\Năm 3 kì 1\LT WINDOWS\Media Player\MediaPlayer\MediaPlayer\obj\Debug\App.baml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MediaPlayer.exe.config
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MediaPlayer.exe
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MediaPlayer.pdb
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Core.dll
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Material.dll
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Core.pdb
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Core.xml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Material.pdb
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\bin\Debug\MahApps.Metro.IconPacks.Material.xml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.csproj.AssemblyReference.cache
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.csproj.SuggestedBindingRedirects.cache
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\App.baml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MainWindow.g.cs
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\Home.g.cs
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\NowPlaying.g.cs
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\Playlist.g.cs
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\RecentPlayed.g.cs
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\App.g.cs
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer_MarkupCompile.cache
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer_MarkupCompile.lref
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MainWindow.baml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\Home.baml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\NowPlaying.baml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\Playlist.baml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\View\RecentPlayed.baml
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.g.resources
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.Properties.Resources.resources
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.csproj.GenerateResource.cache
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.csproj.CoreCompileInputs.cache
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.csproj.CopyComplete
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.exe
+C:\Hoc\LTWindows\ProjectMP\MediaPlayer\obj\Debug\MediaPlayer.pdb
