@@ -32,11 +32,12 @@ namespace MediaPlayerProject
 
         // Khởi tạo tài nguyên
         private System.Windows.Controls.Button curBtn;
-        private MediaPlayer Player = new MediaPlayer();
+        public MediaPlayer Player = new MediaPlayer();
         private DispatcherTimer Timer;
         private Song testSong;
         private ObservableCollection<MediaPlayerProject.DataClass.Playlist> testPlaylist = new ObservableCollection<MediaPlayerProject.DataClass.Playlist>();
-        private int CurSongIndex { get; set; }
+        public MediaPlayerProject.DataClass.Playlist CurPlaylist;
+        public int CurSongIndex { get; set; }
         
 
         private void changeView(UserControl view)
@@ -68,6 +69,7 @@ namespace MediaPlayerProject
         {
             InitializeComponent();
             testPlaylist.Add(new MediaPlayerProject.DataClass.Playlist("test"));
+            CurPlaylist = testPlaylist[0];
             playlistBox.ItemsSource = testPlaylist;
             CurSongIndex = -1;
         }
@@ -153,9 +155,9 @@ namespace MediaPlayerProject
             openFileScreen.Title = "Please select music to be played.";
             if (openFileScreen.ShowDialog() == true)
             {
-                CurSongIndex = testPlaylist[0].ListSong.Count;
-                testPlaylist[0].addSongsToPlaylist(openFileScreen.FileNames);
-                OpenSong(testPlaylist[0].ListSong[CurSongIndex].AbsolutePath);
+                CurSongIndex = CurPlaylist.ListSong.Count;
+                CurPlaylist.addSongsToPlaylist(openFileScreen.FileNames);
+                OpenSong(CurPlaylist.ListSong[CurSongIndex].AbsolutePath);
             }
             changeView(new Home());
             changeCurBtnTo(HomeBtn);
@@ -263,8 +265,8 @@ namespace MediaPlayerProject
             int i = playlistBox.SelectedIndex;
             if ( i >= 0)
             {
-                var playlist = testPlaylist[i];
-                changeView(new View.Playlist(playlist));
+                CurPlaylist = testPlaylist[i];
+                changeView(new View.Playlist(CurPlaylist, this));
             }
             playlistBox.SelectedIndex = -1;
         }
@@ -276,12 +278,12 @@ namespace MediaPlayerProject
                 if (CurSongIndex > 0)
                 {
                     CurSongIndex -= 1;
-                    OpenSong(testPlaylist[0].ListSong[CurSongIndex].AbsolutePath);
+                    OpenSong(CurPlaylist.ListSong[CurSongIndex].AbsolutePath);
                 }
                 else
                 {
-                    CurSongIndex = testPlaylist[0].ListSong.Count - 1;
-                    OpenSong(testPlaylist[0].ListSong[CurSongIndex].AbsolutePath);
+                    CurSongIndex = CurPlaylist.ListSong.Count - 1;
+                    OpenSong(CurPlaylist.ListSong[CurSongIndex].AbsolutePath);
                 }
             }
         }
@@ -290,15 +292,15 @@ namespace MediaPlayerProject
         {
             if (CurSongIndex != -1)
             {
-                if (CurSongIndex < testPlaylist[0].ListSong.Count - 1)
+                if (CurSongIndex < CurPlaylist.ListSong.Count - 1)
                 {
                     CurSongIndex += 1;
-                    OpenSong(testPlaylist[0].ListSong[CurSongIndex].AbsolutePath);
+                    OpenSong(CurPlaylist.ListSong[CurSongIndex].AbsolutePath);
                 }
                 else
                 {
                     CurSongIndex = 0;
-                    OpenSong(testPlaylist[0].ListSong[CurSongIndex].AbsolutePath);
+                    OpenSong(CurPlaylist.ListSong[CurSongIndex].AbsolutePath);
                 }
             }
         }

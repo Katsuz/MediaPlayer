@@ -21,17 +21,25 @@ namespace MediaPlayerProject.View
     public partial class Playlist : UserControl
     {
         private DataClass.Playlist playlist;
+        private MainWindow mainWindow;
 
-        public Playlist(DataClass.Playlist oldPlaylist)
+        public Playlist(DataClass.Playlist oldPlaylist, MainWindow mainWD)
         {
             InitializeComponent();
             playlist = (DataClass.Playlist)oldPlaylist.Clone();
             DataContext = playlist;
+            mainWindow = mainWD;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void playAll_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.CurSongIndex = 0;
+            mainWindow.OpenSong(playlist.ListSong[0].AbsolutePath);
         }
     }
 }

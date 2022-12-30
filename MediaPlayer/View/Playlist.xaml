@@ -44,7 +44,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
-                <Button Style="{StaticResource playlistScreenButton}">
+                <Button Style="{StaticResource playlistScreenButton}" Click="playAll_Click">
                     <Grid>
                         <Icon:PackIconMaterial Kind="Play"/>
                         <TextBlock Text="Play all" Margin="20 0 0 0"/>
