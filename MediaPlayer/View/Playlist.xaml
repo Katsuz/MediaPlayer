@@ -46,29 +46,29 @@
             <StackPanel Grid.Column="0">
                 <Button Style="{StaticResource playlistScreenButton}" Click="playAll_Click">
                     <Grid>
-                        <Icon:PackIconMaterial Kind="Play"/>
-                        <TextBlock Text="Play all" Margin="20 0 0 0"/>
+                        <Icon:PackIconMaterial Kind="Play" Foreground="#363636"/>
+                        <TextBlock Text="Play all" Margin="20 0 0 0" Foreground="#363636"/>
                     </Grid>
                 </Button>
             </StackPanel>
             <StackPanel Grid.Column="1">
-                <Button Width="80" Height="55">
+                <Button Style="{StaticResource playlistScreenButton}" >
                     <Grid>
-                        <Icon:PackIconMaterial Kind="Play"/>
-                        <TextBlock Text="Play all" Margin="20 0 0 0"/>
+                        <Icon:PackIconMaterial Kind="PlusBox" Foreground="#363636"/>
+                        <TextBlock Text="Add to" Margin="20 0 0 0" Foreground="#363636"/>
                     </Grid>
                 </Button>
             </StackPanel>
             <StackPanel Grid.Column="2">
-                <Button Width="80" Height="55">
+                <Button Style="{StaticResource playlistScreenButton}" Width="101" >
                     <Grid>
-                        <Icon:PackIconMaterial Kind="Play"/>
-                        <TextBlock Text="Play all" Margin="20 0 0 0"/>
+                        <Icon:PackIconMaterial Kind="TrashCan" Foreground="#363636"/>
+                        <TextBlock Text="Delete Playlist" Margin="20 0 0 0" Foreground="#363636"/>
                     </Grid>
                 </Button>
             </StackPanel>
         </Grid>
-        <ListView Grid.Row="2" x:Name="SongList" ItemsSource="{Binding ListSong}">
+        <ListView Grid.Row="2" x:Name="SongList" ItemsSource="{Binding ListSong}" Margin="0 15 0 0 " BorderThickness="0">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
