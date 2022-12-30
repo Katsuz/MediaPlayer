@@ -72,16 +72,18 @@
                     <StackPanel >
                         <StackPanel Orientation="Horizontal" Name="Playlist">
                             <TextBlock Text="Playlists" Style="{StaticResource menuTitle2}"/>
-                            <Button  Margin="40,0,0,0" Style="{StaticResource btnAddPlaylistMain}" Background="Transparent" Width="50" x:Name="addPlaylistBtn" Click="addPlaylistBtn_Click" >
+                            <Button Margin="40,0,0,0" Style="{StaticResource btnAddPlaylistMain}" Background="Transparent" 
+                                    Width="50" x:Name="addPlaylistBtn" Click="addPlaylistBtn_Click" >
                                 <Icon:PackIconMaterial  Kind="PlaylistPlus" VerticalAlignment="Center" 
                                 FontWeight="Bold" FontSize="22" />
                             </Button>
                             
                         </StackPanel>
-                        <ListBox x:Name="playlistBox" Style="{StaticResource ListBoxPlaylist}" Margin="40,10,0,0" SelectionChanged="playlistBox_SelectionChanged" SelectionMode="Single">
+                        <ListBox x:Name="playlistBox" Margin="40,0,0,0"  SelectionMode="Single" SelectionChanged="playlistBox_SelectionChanged" 
+                                 IsSynchronizedWithCurrentItem="True" Style="{StaticResource ListBoxPlaylist}">
                             <ListBox.ItemTemplate>
-                                <DataTemplate >
-                                    <TextBlock Text="{Binding Name}" />
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
@@ -93,7 +95,7 @@
             <!--Player-->
             <Border CornerRadius="15" Grid.Row="2" Grid.ColumnSpan="2" Background="#03bf69" >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Style="{StaticResource playerButton}" Margin="50 0 0 0">
+                    <Button Style="{StaticResource playerButton}" Margin="50 0 0 0" Click="Previous_Click">
                         <Icon:PackIconMaterial Kind="SkipPrevious" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
 

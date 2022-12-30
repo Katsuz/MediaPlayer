@@ -5,8 +5,15 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MediaPlayerProject.View"
+             xmlns:converter="clr-namespace:MediaPlayerProject.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="830">
+             d:DesignHeight="600" d:DesignWidth="830" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <converter:RelativeToAbsolutePath x:Key="absoluteConverter"/>
+        <converter:DateTimeConverter x:Key="datetimeConverter"/>
+        <converter:DurationConverter x:Key="durationConverter"/>
+    </UserControl.Resources>
+    
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="2.5*"/>
@@ -24,7 +31,7 @@
             <StackPanel Grid.Column="1" Orientation="Vertical">
                 <TextBlock Text="{Binding Name}" FontSize="28" FontWeight="Bold" Margin="15 50 0 30" Foreground="#444444"/>
                 <StackPanel Orientation="Horizontal" Margin="15 0">
-                    <TextBlock Text="5" Margin="0 0 5 0" FontSize="15"/>
+                    <TextBlock Text="{Binding NumberOfSong}" Margin="0 0 5 0" FontSize="15"/>
                     <TextBlock Text="songs" FontSize="15"/>
                 </StackPanel>
             </StackPanel>
@@ -46,17 +53,39 @@
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <Button Width="80" Height="55">
-                    
+                    <Grid>
+                        <Icon:PackIconMaterial Kind="Play"/>
+                        <TextBlock Text="Play all" Margin="20 0 0 0"/>
+                    </Grid>
                 </Button>
             </StackPanel>
             <StackPanel Grid.Column="2">
                 <Button Width="80" Height="55">
-                    
+                    <Grid>
+                        <Icon:PackIconMaterial Kind="Play"/>
+                        <TextBlock Text="Play all" Margin="20 0 0 0"/>
+                    </Grid>
                 </Button>
             </StackPanel>
         </Grid>
-        <ListView Grid.Row="2">
-            
+        <ListView Grid.Row="2" x:Name="SongList" ItemsSource="{Binding ListSong}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ID}"></TextBlock>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                        <TextBlock Text="{Binding Album}"></TextBlock>
+                        <TextBlock Text="{Binding DateAdded, Converter={StaticResource datetimeConverter}}"></TextBlock>
+                        <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter}}"></TextBlock>
+                        <Button Width="80" Height="55">
+                            <Icon:PackIconMaterial Kind="Play"/>
+                        </Button>
+                        <Button Width="80" Height="55">
+                            <Icon:PackIconMaterial Kind="TrashCan"/>
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </UserControl>

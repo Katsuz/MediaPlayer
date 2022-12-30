@@ -76,6 +76,9 @@
     <Compile Include="AddPlaylist.xaml.cs">
       <DependentUpon>AddPlaylist.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\DateTimeConverter.cs" />
+    <Compile Include="Converter\DurationConverter.cs" />
+    <Compile Include="Converter\RelativeToAbsolutePath.cs" />
     <Compile Include="DataClass\Playlist.cs" />
     <Compile Include="DataClass\Song.cs" />
     <Compile Include="View\Home.xaml.cs">
