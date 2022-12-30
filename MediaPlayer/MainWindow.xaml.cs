@@ -36,6 +36,7 @@ namespace MediaPlayerProject
         private DispatcherTimer Timer;
         private Song testSong;
         private ObservableCollection<MediaPlayerProject.DataClass.Playlist> testPlaylist = new ObservableCollection<MediaPlayerProject.DataClass.Playlist>();
+        private int CurSongIndex { get; set; }
         
 
         private void changeView(UserControl view)
@@ -67,8 +68,8 @@ namespace MediaPlayerProject
         {
             InitializeComponent();
             testPlaylist.Add(new MediaPlayerProject.DataClass.Playlist("test"));
-            
             playlistBox.ItemsSource = testPlaylist;
+            CurSongIndex = -1;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -135,6 +136,16 @@ namespace MediaPlayerProject
             currentPosition.Text = $"{hours}:{minutes}:{seconds}";
             Title = $"{hours}:{minutes}:{seconds}";
         }
+
+        public void OpenSong(string absolutePath)
+        {
+            Player.Open(new Uri(absolutePath, UriKind.Absolute));
+            Player.Play();
+            Timer = new DispatcherTimer();
+            Timer.Interval = new TimeSpan(0, 0, 0, 1, 0); ;
+            Timer.Tick += Timer_Tick;
+            Timer.Start();
+        }
         private void OpenFile_Clicked(object sender, RoutedEventArgs e)
         {
             changeCurBtnTo(OpenFileBtn);
@@ -145,13 +156,9 @@ namespace MediaPlayerProject
             openFileScreen.Title = "Please select music to be played.";
             if (openFileScreen.ShowDialog() == true)
             {
-
-                Player.Open(new Uri(openFileScreen.FileName,UriKind.Absolute));
-                Player.Play();
-                Timer = new DispatcherTimer();
-                Timer.Interval = new TimeSpan(0, 0, 0, 1, 0); ;
-                Timer.Tick += Timer_Tick;
-                Timer.Start();
+                CurSongIndex = testPlaylist[0].ListSong.Count;
+                testPlaylist[0].addSongsToPlaylist(openFileScreen.FileNames);
+                OpenSong(testPlaylist[0].ListSong[CurSongIndex].AbsolutePath);
             }
             changeView(new Home());
             changeCurBtnTo(HomeBtn);
@@ -257,8 +264,18 @@ namespace MediaPlayerProject
         private void playlistBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int i = playlistBox.SelectedIndex;
-            var playlist = testPlaylist[i];
-            changeView(new View.Playlist(playlist));
+            if ( i >= 0)
+            {
+                var playlist = testPlaylist[i];
+                changeView(new View.Playlist(playlist));
+            }
+            playlistBox.SelectedIndex = -1;
+        }
+
+        private void Previous_Click(object sender, RoutedEventArgs e)
+        {
+
+            OpenSong(testPlaylist[0].ListSong[CurSongIndex + 1].AbsolutePath);
         }
     }   
 }

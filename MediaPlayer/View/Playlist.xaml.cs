@@ -28,5 +28,10 @@ namespace MediaPlayerProject.View
             playlist = (DataClass.Playlist)oldPlaylist.Clone();
             DataContext = playlist;
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

@@ -10,13 +10,14 @@ namespace MediaPlayerProject.DataClass
 {
     public class Song : INotifyPropertyChanged
     {
-        private int ID { get; set; }
-        private string Name { get; set; }
-        private string Singer { get; set; }
-        private string Album { get; set; }
-        private TimeSpan Duration { get; set; }
-        private string AbsolutePath {get; set; }
-        private BitmapImage thumnail { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Singer { get; set; }
+        public string Album { get; set; }
+        public DateTime DateAdded { get; set; }
+        public TimeSpan Duration { get; set; }
+        public string AbsolutePath {get; set; }
+        public BitmapImage thumnail { get; set; }
 
         public Song(int iD, string name, string singer, string album, TimeSpan duration, string absolutePath, BitmapImage thumnail)
         {
@@ -24,6 +25,7 @@ namespace MediaPlayerProject.DataClass
             Name = name;
             Singer = singer;
             Album = album;
+            DateAdded = new DateTime();
             Duration = duration;
             AbsolutePath = absolutePath;
             this.thumnail = thumnail;
