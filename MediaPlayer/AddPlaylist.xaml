@@ -8,20 +8,20 @@
         mc:Ignorable="d"
         Title="AddPlaylist" Height="250" Width="450" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" AllowsTransparency="True"  WindowStyle="None" Background="Transparent">
-    <Border Background="White" CornerRadius="20" MouseDown="Border_MouseDown">
+    <Border Background="#F5FFFA" CornerRadius="20" MouseDown="Border_MouseDown">
         <StackPanel Orientation="Vertical">
-            <TextBlock Text="Add Playlist" Style="{StaticResource TitleDisplay}"/>
-            
-            <Button x:Name="Exit_Button" Click="Exit_Button_Click" Style="{StaticResource ExitButton}" >
+            <TextBlock Text="Add Playlist" Style="{StaticResource TitleDisplay}" Margin="40 10 0 0"/>
+
+            <Button x:Name="Exit_Button" Click="Exit_Button_Click" Style="{StaticResource ExitAddPlaylistButton}" HorizontalAlignment="Right" Margin="0 -20 15 0" >
                 <Icon:PackIconMaterial Kind="Close"/>
             </Button>
 
-            <TextBlock Text="Name" />
-            <TextBox x:Name="NamePlaylist"/>
+            <TextBlock Text="Name" FontSize="18" Margin="50 30 0 0" FontWeight="Bold"/>
+            <TextBox x:Name="NamePlaylist" Margin="50 20 50 0" Height="30"/>
 
-            <Button Style="{StaticResource menuButton}" x:Name="saveBtn" Click="saveBtn_Click">
+            <Button Style="{StaticResource menuButton}" Width="120" Margin="0 20" x:Name="saveBtn" Click="saveBtn_Click">
                 <Button.Content>
-                    <TextBlock Text="Save"/>
+                    <TextBlock Text="Save" HorizontalAlignment="Left" Margin="25,0,0,0" TextAlignment="Center"/>
                 </Button.Content>
             </Button>
 
