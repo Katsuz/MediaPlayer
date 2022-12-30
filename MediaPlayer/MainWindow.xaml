@@ -81,9 +81,7 @@
                         <ListBox x:Name="playlistBox" Margin="40,0,0,0" SelectionChanged="playlistBox_SelectionChanged" SelectionMode="Single">
                             <ListBox.ItemTemplate >
                                 <DataTemplate>
-                                    <Button>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </Button>
+                                    <TextBlock Text="{Binding Name}"/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
