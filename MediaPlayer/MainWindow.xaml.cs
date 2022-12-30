@@ -253,5 +253,12 @@ namespace MediaPlayerProject
                 Title = "KHONG CO DU LIEU";
             }
         }
+
+        private void playlistBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int i = playlistBox.SelectedIndex;
+            var playlist = testPlaylist[i];
+            changeView(new View.Playlist(playlist));
+        }
     }   
 }

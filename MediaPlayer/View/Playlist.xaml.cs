@@ -20,11 +20,13 @@ namespace MediaPlayerProject.View
     /// </summary>
     public partial class Playlist : UserControl
     {
-        private string v;
+        private DataClass.Playlist playlist;
 
-        public Playlist()
+        public Playlist(DataClass.Playlist oldPlaylist)
         {
             InitializeComponent();
+            playlist = (DataClass.Playlist)oldPlaylist.Clone();
+            DataContext = playlist;
         }
     }
 }

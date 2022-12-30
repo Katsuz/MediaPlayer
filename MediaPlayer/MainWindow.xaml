@@ -78,10 +78,12 @@
                             </Button>
                             
                         </StackPanel>
-                        <ListBox x:Name="playlistBox" Margin="40,0,0,0">
-                            <ListBox.ItemTemplate>
+                        <ListBox x:Name="playlistBox" Margin="40,0,0,0" SelectionChanged="playlistBox_SelectionChanged" SelectionMode="Single">
+                            <ListBox.ItemTemplate >
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Name}" />
+                                    <Button>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </Button>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
