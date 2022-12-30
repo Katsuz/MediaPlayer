@@ -90,11 +90,11 @@
                         <TextBlock Text="{Binding Album}" TextWrapping="WrapWithOverflow"></TextBlock>
                         <TextBlock Text="{Binding DateAdded, Converter={StaticResource datetimeConverter}}"></TextBlock>
                         <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter}}"></TextBlock>
-                        <Button Width="50" Height="40">
+                        <Button Tag ="{Binding ID}" Width="80" Height="55" Click="playSingle_Click">
                             <Icon:PackIconMaterial Kind="Play"/>
                         </Button>
-                        <Button Width="50" Height="40">
-                            <Icon:PackIconMaterial Kind="TrashCan"/>
+                        <Button Tag ="{Binding ID}" Width="80" Height="55" Click="deleteSingle_Click">
+                            <Icon:PackIconMaterial Kind="TrashCan" />
                         </Button>
                     </UniformGrid>
                 </DataTemplate>

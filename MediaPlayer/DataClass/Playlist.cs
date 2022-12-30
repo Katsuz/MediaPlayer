@@ -59,14 +59,13 @@ namespace MediaPlayerProject.DataClass
                 bitmap.StreamSource = ms;
                 bitmap.EndInit();
 
-                this.AddSong(new Song(1, name, singer, album, duration, absolutePath, bitmap));
+                this.AddSong(new Song(this.NumberOfSong, name, singer, album, duration, absolutePath, bitmap));
             }
         }
 
         public bool RemoveSong(Song song)
         {
-            this.ListSong.Remove(song);
-            return true;
+            return ListSong.Remove(song);
         }
 
         public object Clone()
