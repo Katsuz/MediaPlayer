@@ -247,7 +247,6 @@ namespace MediaPlayerProject
             {
                 var newPlaylist = (MediaPlayerProject.DataClass.Playlist)addPlaylistWindow.NewPlaylist.Clone();
                 testPlaylist.Add(newPlaylist);
-                Console.WriteLine(testPlaylist.Count);
             }
             else
             {
