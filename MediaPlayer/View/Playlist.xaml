@@ -77,11 +77,11 @@
                         <TextBlock Text="{Binding Album}"></TextBlock>
                         <TextBlock Text="{Binding DateAdded, Converter={StaticResource datetimeConverter}}"></TextBlock>
                         <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter}}"></TextBlock>
-                        <Button Width="80" Height="55">
+                        <Button Tag ="{Binding ID}" Width="80" Height="55" Click="playSingle_Click">
                             <Icon:PackIconMaterial Kind="Play"/>
                         </Button>
-                        <Button Width="80" Height="55">
-                            <Icon:PackIconMaterial Kind="TrashCan"/>
+                        <Button Tag ="{Binding ID}" Width="80" Height="55" Click="deleteSingle_Click">
+                            <Icon:PackIconMaterial Kind="TrashCan" />
                         </Button>
                     </StackPanel>
                 </DataTemplate>

@@ -41,5 +41,38 @@ namespace MediaPlayerProject.View
             mainWindow.CurSongIndex = 0;
             mainWindow.OpenSong(playlist.ListSong[0].AbsolutePath);
         }
+
+        private void playSingle_Click(object sender, RoutedEventArgs e)
+        {
+            Button selected = (Button)sender;
+            int songID = (int)selected.Tag;
+            DataClass.Song selectedSong = null;
+            for (int i = 0; i < playlist.ListSong.Count; i++)
+            {
+                if (playlist.ListSong[i].ID == songID)
+                {
+                    selectedSong = playlist.ListSong[i];
+                }
+            }
+            mainWindow.OpenSong(selectedSong.AbsolutePath);
+        }
+
+        private void deleteSingle_Click(object sender, RoutedEventArgs e)
+        {
+            Button selected = (Button)sender;
+            int songID = (int)selected.Tag;
+            DataClass.Song selectedSong = null;
+            for (int i = 0; i < playlist.ListSong.Count; i++)
+            {
+                if (playlist.ListSong[i].ID == songID)
+                {
+                    selectedSong = playlist.ListSong[i];
+                }
+            }
+            if (selectedSong != null)
+            {
+                playlist.RemoveSong(selectedSong);
+            }   
+        }
     }
 }

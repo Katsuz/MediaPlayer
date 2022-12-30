@@ -111,8 +111,6 @@
                         <Icon:PackIconMaterial Kind="SkipNext" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
 
-                    <!--SelectionEnd="{Binding ElementName=slider,Path=Value}"-->
-                    <!--ValueChanged="slider_ValueChanged"-->
                     <!--Slider-->
                     <TextBlock x:Name="currentPosition" Text="0:0:0" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
                     <Slider Style="{DynamicResource SliderStyle1}" x:Name="slider" IsSelectionRangeEnabled="True" VerticalAlignment="Center" 
