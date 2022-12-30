@@ -14,9 +14,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Ten bai hat" VerticalAlignment="Center" Grid.Column="0"/>
-                <TextBlock Text="Tac gia" VerticalAlignment="Center" Grid.Column="1"/>
-                <TextBlock Text="Time" VerticalAlignment="Center" Grid.Column="2"/>
+                <TextBlock Text="Ten bai hat" VerticalAlignment="Center" Grid.Column="0" FontSize="15"/>
+                <TextBlock Text="Tac gia" VerticalAlignment="Center" Grid.Column="1" FontSize="15"/>
+                <TextBlock Text="Time" VerticalAlignment="Center" Grid.Column="2" FontSize="15"/>
         </Grid>
        
         

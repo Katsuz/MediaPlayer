@@ -8,7 +8,7 @@
              d:DesignHeight="600" d:DesignWidth="830">
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.2*"/>
             <RowDefinition Height="7*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
