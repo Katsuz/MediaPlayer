@@ -13,11 +13,11 @@
         <converter:DateTimeConverter x:Key="datetimeConverter"/>
         <converter:DurationConverter x:Key="durationConverter"/>
     </UserControl.Resources>
-    
+
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2.5*"/>
-            <RowDefinition Height="0.75*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -29,13 +29,13 @@
                 <Image Source="{Binding }"></Image>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Vertical">
-                <TextBlock Text="{Binding Name}" FontSize="28" FontWeight="Bold" Margin="15 50 0 30" Foreground="#444444"/>
+                <TextBlock Text="{Binding Name}" FontSize="28" FontWeight="Bold" Margin="15 50 0 15" Foreground="#444444"/>
                 <StackPanel Orientation="Horizontal" Margin="15 0">
                     <TextBlock Text="{Binding NumberOfSong}" Margin="0 0 5 0" FontSize="15"/>
                     <TextBlock Text="songs" FontSize="15"/>
                 </StackPanel>
             </StackPanel>
-            
+
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -43,47 +43,60 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <Button Style="{StaticResource playlistScreenButton}" Click="playAll_Click">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="0" Grid.Row="0">
+                <Button Style="{StaticResource playlistScreenButton}" Click="playAll_Click" FontSize="15">
                     <Grid>
-                        <Icon:PackIconMaterial Kind="Play" Foreground="#363636"/>
+                        <Icon:PackIconMaterial Kind="Play" Foreground="#363636" VerticalAlignment="Center"/>
                         <TextBlock Text="Play all" Margin="20 0 0 0" Foreground="#363636"/>
                     </Grid>
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Column="1">
-                <Button Style="{StaticResource playlistScreenButton}" >
-                    <Grid>
-                        <Icon:PackIconMaterial Kind="PlusBox" Foreground="#363636"/>
+            <StackPanel Grid.Column="1" Grid.Row="0">
+                <Button Style="{StaticResource playlistScreenButton}" FontSize="15">
+                    <Grid >
+                        <Icon:PackIconMaterial Kind="PlusBox" Foreground="#363636" VerticalAlignment="Center"/>
                         <TextBlock Text="Add to" Margin="20 0 0 0" Foreground="#363636"/>
                     </Grid>
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Column="2">
-                <Button Style="{StaticResource playlistScreenButton}" Width="101" >
-                    <Grid>
-                        <Icon:PackIconMaterial Kind="TrashCan" Foreground="#363636"/>
-                        <TextBlock Text="Delete Playlist" Margin="20 0 0 0" Foreground="#363636"/>
+            <StackPanel Grid.Column="2" Grid.Row="0">
+                <Button Style="{StaticResource playlistScreenButton}" Width="124" FontSize="15" >
+                    <Grid Width="136" VerticalAlignment="Center">
+                        <Icon:PackIconMaterial Kind="TrashCan" Foreground="#363636" VerticalAlignment="Center"/>
+                        <TextBlock Text="Delete Playlist" Foreground="#363636" HorizontalAlignment="Right" Width="115"/>
                     </Grid>
                 </Button>
             </StackPanel>
+            <UniformGrid Columns="7" Grid.Row="1" Grid.ColumnSpan="3" Margin="5 0 0 0">
+                <TextBlock Text="ID" FontWeight="Bold" FontSize="15" ></TextBlock>
+                <TextBlock Text="Name" FontWeight="Bold" FontSize="15"></TextBlock>
+                <TextBlock Text="Album" FontWeight="Bold" FontSize="15"></TextBlock>
+                <TextBlock Text="DateAdded" FontWeight="Bold" FontSize="15"></TextBlock>
+                <TextBlock Text="Duration" FontWeight="Bold" FontSize="15"></TextBlock>
+                <TextBlock Text="Phát" FontWeight="Bold" FontSize="15"></TextBlock>
+                <TextBlock Text="Xoá" FontWeight="Bold" FontSize="15"></TextBlock>
+            </UniformGrid>
         </Grid>
-        <ListView Grid.Row="2" x:Name="SongList" ItemsSource="{Binding ListSong}" Margin="0 15 0 0 " BorderThickness="0">
+        <ListView Grid.Row="2" x:Name="SongList" ItemsSource="{Binding ListSong}" Margin="0 15 0 0 " BorderThickness="0" Width="830">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <UniformGrid Columns="7" Width="810">
                         <TextBlock Text="{Binding ID}"></TextBlock>
-                        <TextBlock Text="{Binding Name}"></TextBlock>
-                        <TextBlock Text="{Binding Album}"></TextBlock>
+                        <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" Margin="-50 0"></TextBlock>
+                        <TextBlock Text="{Binding Album}" TextWrapping="WrapWithOverflow"></TextBlock>
                         <TextBlock Text="{Binding DateAdded, Converter={StaticResource datetimeConverter}}"></TextBlock>
                         <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter}}"></TextBlock>
-                        <Button Width="80" Height="55">
+                        <Button Width="50" Height="40">
                             <Icon:PackIconMaterial Kind="Play"/>
                         </Button>
-                        <Button Width="80" Height="55">
+                        <Button Width="50" Height="40">
                             <Icon:PackIconMaterial Kind="TrashCan"/>
                         </Button>
-                    </StackPanel>
+                    </UniformGrid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
