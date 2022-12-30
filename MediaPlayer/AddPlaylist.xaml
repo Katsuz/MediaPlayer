@@ -17,7 +17,7 @@
             </Button>
 
             <TextBlock Text="Name" FontSize="18" Margin="50 30 0 0" FontWeight="Bold"/>
-            <TextBox x:Name="NamePlaylist" Margin="50 20 50 0" Height="30"/>
+            <TextBox x:Name="NamePlaylist" Margin="50 20 50 0" Height="30" FontSize="15" Padding="4"/>
 
             <Button Style="{StaticResource menuButton}" Width="120" Margin="0 20" x:Name="saveBtn" Click="saveBtn_Click">
                 <Button.Content>
