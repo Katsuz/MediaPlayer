@@ -145,7 +145,7 @@ namespace MediaPlayerProject
                 Timer.Start();
             }
             changeView(new Home());
-            changeCurBtnTo(NowPlayingBtn);
+            changeCurBtnTo(HomeBtn);
         }
 
         private void PauseBtn_Click(object sender, RoutedEventArgs e)
@@ -153,6 +153,7 @@ namespace MediaPlayerProject
             PauseBtn.Visibility = Visibility.Collapsed;
             PlayBtn.Visibility = Visibility.Visible;
             Player.Pause();
+            Timer.Stop();
         }
 
         private void PlayBtn_Click(object sender, RoutedEventArgs e)
@@ -160,6 +161,74 @@ namespace MediaPlayerProject
             PlayBtn.Visibility = Visibility.Collapsed;
             PauseBtn.Visibility = Visibility.Visible;
             Player.Play();
+            Timer.Start();
+        }
+
+        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            // Lay gia tri hien tai cua slide
+            // Cap nhat vao player
+
+            double value = slider.Value;
+            TimeSpan newPosition = TimeSpan.FromSeconds(value);
+            Player.Position = newPosition;
+        }
+
+        private void ChangeVolBtnIconTo(string type)
+        {
+            volumeBtn.Tag = type;
+        }
+
+        private void ProcessVolBtnIcon()
+        {
+            if (Player.Volume == 0)
+            {
+                if (volumeBtn.Tag.ToString() == "VolumeOff")
+                {
+                    ChangeVolBtnIconTo("VolumeLow");
+                    Player.Volume = 0.1;
+                }
+                else
+                {
+                    ChangeVolBtnIconTo("VolumeMute");
+                }
+            }
+            else if (Player.Volume < 0.3)
+            {
+                ChangeVolBtnIconTo("VolumeLow");
+            }
+            else if (Player.Volume <= 0.7)
+            {
+                ChangeVolBtnIconTo("VolumeMedium");
+            }
+            else if (Player.Volume > 0.7)
+            {
+                ChangeVolBtnIconTo("VolumeHigh");
+            }
+        }
+
+        private void sliderVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            // Lay gia tri hien tai cua volume slider
+            // Cap nhat vao player
+            double newVolume = sliderVolume.Value/10;
+            Player.Volume = newVolume;
+            ProcessVolBtnIcon();
+        }
+
+        private void volumeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (volumeBtn.Tag.ToString() != "VolumeOff")
+            {
+                Player.Volume = 0;
+                ChangeVolBtnIconTo("VolumeOff");
+            }
+            else
+            {
+                double newVolume = sliderVolume.Value / 10;
+                Player.Volume = newVolume;
+                ProcessVolBtnIcon();
+            }
         }
     }   
 }

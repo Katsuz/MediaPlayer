@@ -106,23 +106,25 @@
                     </Button>
                     
                     <!--Slider-->
-                    <TextBlock x:Name="currentPosition" Text="1:23" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
-                    <Slider Style="{DynamicResource SliderStyle1}" x:Name="slider" IsSelectionRangeEnabled="True" VerticalAlignment="Center" Value="0" Width="350" SelectionEnd="{Binding ElementName=slider,Path=Value}"/>
-                    <TextBlock x:Name="totalTime" d:Text="1:23" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
+                    <TextBlock x:Name="currentPosition" Text="0:0:0" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
+                    <Slider Style="{DynamicResource SliderStyle1}" x:Name="slider" IsSelectionRangeEnabled="True" VerticalAlignment="Center" 
+                            Value="0" Width="350" SelectionEnd="{Binding ElementName=slider,Path=Value}" ValueChanged="slider_ValueChanged"/>
+                    <TextBlock x:Name="totalTime" d:Text="0:0:0" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
 
                     <Button Style="{StaticResource playerButton}">
                         <Icon:PackIconMaterial Kind="Shuffle" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
 
                     <Button Style="{StaticResource playerButton}">
-                        <Icon:PackIconMaterial Kind="Repeat" Style="{StaticResource playerButtonIcon}"/> 
+                        <Icon:PackIconMaterial Kind="Repeat" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
                     
                     <!--Volume-->
-                    <Button Style="{StaticResource playerButton}">
-                        <Icon:PackIconMaterial Kind="VolumeHigh" Style="{StaticResource playerButtonIcon}"/>
+                    <Button Style="{StaticResource playerButton}" x:Name="volumeBtn" Click="volumeBtn_Click" Tag="VolumeHigh">
+                        <Icon:PackIconMaterial Kind="{Binding ElementName=volumeBtn, Path=Tag}" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
-                    <Slider Style="{DynamicResource SliderStyle1}" x:Name="sliderVolume" IsSelectionRangeEnabled="True" VerticalAlignment="Center" Value="5" Width="120" SelectionEnd="{Binding ElementName=sliderVolume,Path=Value}"/>
+                    <Slider Style="{DynamicResource SliderStyle1}" x:Name="sliderVolume" IsSelectionRangeEnabled="True" VerticalAlignment="Center" 
+                            Value="10" Width="120" SelectionEnd="{Binding ElementName=sliderVolume, Path=Value}" ValueChanged="sliderVolume_ValueChanged"/>
                 </StackPanel>
             </Border>
             
