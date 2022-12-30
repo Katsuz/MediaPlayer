@@ -70,11 +70,12 @@
                         </Button>
                     </StackPanel>
                     <StackPanel >
-                        <StackPanel Orientation="Horizontal" Name="Playlist">
+                        <StackPanel Orientation="Horizontal" Name="Playlist" HorizontalAlignment="Center">
                             <TextBlock Text="Playlists" Style="{StaticResource menuTitle2}"/>
-                            <Button  Margin="40,0,0,0" Background="Transparent" Width="50" >
-                                <Icon:PackIconMaterial Kind="PlaylistPlus" VerticalAlignment="Center" 
-                                FontWeight="Bold" FontSize="22" Foreground="#666666"/>
+                            <Button Style="{StaticResource btnAddPlaylistMain}" Margin="20,0,0,0" Width="70" BorderThickness="0">
+                                  <Icon:PackIconMaterial Kind="PlaylistPlus" VerticalAlignment="Center" 
+                                    FontWeight="Bold" FontSize="22"/>
+                                
                             </Button>
                             
                         </StackPanel>

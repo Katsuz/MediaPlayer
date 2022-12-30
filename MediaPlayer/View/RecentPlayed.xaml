@@ -8,22 +8,27 @@
              d:DesignHeight="600" d:DesignWidth="830" >
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="4.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
             <StackPanel Width="200" Margin="50 0 0 0 ">
                 
             </StackPanel>
             <StackPanel Orientation="Vertical" Width="500">
-                <TextBlock Text="Name" HorizontalAlignment="Center" Margin="0 30" />
+                <TextBlock Text="Name" Margin="20 50" />
                 <Button Width="100" Height="60" >
                     <TextBlock Text="Play"/>
                 </Button>
             </StackPanel>
         </StackPanel>
-        <ListView Grid.Row="1">
+        <ScrollViewer Grid.Row="2">
             
-        </ListView>
+            <ListView>
+            
+            </ListView>
+        </ScrollViewer>
     </Grid>
 </UserControl>
