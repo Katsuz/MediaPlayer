@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using System.Reflection.Emit;
 using Microsoft.Win32;
 using System.Windows.Threading;
+using MediaPlayerProject.DataClass;
+using System.Collections.ObjectModel;
 
 namespace MediaPlayerProject
 {
@@ -32,7 +34,9 @@ namespace MediaPlayerProject
         private System.Windows.Controls.Button curBtn;
         private MediaPlayer Player = new MediaPlayer();
         private DispatcherTimer Timer;
-
+        private Song testSong;
+        private ObservableCollection<MediaPlayerProject.DataClass.Playlist> testPlaylist = new ObservableCollection<MediaPlayerProject.DataClass.Playlist>();
+        
 
         private void changeView(UserControl view)
         {
@@ -62,6 +66,9 @@ namespace MediaPlayerProject
         public MainWindow()
         {
             InitializeComponent();
+            testPlaylist.Add(new MediaPlayerProject.DataClass.Playlist("test"));
+            
+            playlistBox.ItemsSource = testPlaylist;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -132,11 +139,13 @@ namespace MediaPlayerProject
         {
             changeCurBtnTo(OpenFileBtn);
             var openFileScreen = new OpenFileDialog();
+            openFileScreen.Multiselect= true;
             openFileScreen.Filter = "Sound Files|*.mp3| Video Files|*.mp4";
             openFileScreen.InitialDirectory = @"C:\";
             openFileScreen.Title = "Please select music to be played.";
             if (openFileScreen.ShowDialog() == true)
             {
+
                 Player.Open(new Uri(openFileScreen.FileName,UriKind.Absolute));
                 Player.Play();
                 Timer = new DispatcherTimer();
@@ -228,6 +237,21 @@ namespace MediaPlayerProject
                 double newVolume = sliderVolume.Value / 10;
                 Player.Volume = newVolume;
                 ProcessVolBtnIcon();
+            }
+        }
+
+        private void addPlaylistBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var addPlaylistWindow = new AddPlaylist();
+            if (addPlaylistWindow.ShowDialog() == true)
+            {
+                var newPlaylist = (MediaPlayerProject.DataClass.Playlist)addPlaylistWindow.NewPlaylist.Clone();
+                testPlaylist.Add(newPlaylist);
+                Console.WriteLine(testPlaylist.Count);
+            }
+            else
+            {
+                Title = "KHONG CO DU LIEU";
             }
         }
     }   

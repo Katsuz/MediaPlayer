@@ -20,6 +20,8 @@ namespace MediaPlayerProject.View
     /// </summary>
     public partial class Playlist : UserControl
     {
+        private string v;
+
         public Playlist()
         {
             InitializeComponent();

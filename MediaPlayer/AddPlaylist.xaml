@@ -19,7 +19,7 @@
             <TextBlock Text="Name" />
             <TextBox x:Name="NamePlaylist"/>
 
-            <Button Style="{StaticResource menuButton}">
+            <Button Style="{StaticResource menuButton}" x:Name="saveBtn" Click="saveBtn_Click">
                 <Button.Content>
                     <TextBlock Text="Save"/>
                 </Button.Content>

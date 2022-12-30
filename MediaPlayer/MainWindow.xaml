@@ -72,15 +72,19 @@
                     <StackPanel >
                         <StackPanel Orientation="Horizontal" Name="Playlist">
                             <TextBlock Text="Playlists" Style="{StaticResource menuTitle2}"/>
-                            <Button  Margin="40,0,0,0" Background="Transparent" Width="50" >
+                            <Button  Margin="40,0,0,0" Background="Transparent" Width="50" x:Name="addPlaylistBtn" Click="addPlaylistBtn_Click" >
                                 <Icon:PackIconMaterial Kind="PlaylistPlus" VerticalAlignment="Center" 
                                 FontWeight="Bold" FontSize="22" Foreground="#666666"/>
                             </Button>
                             
                         </StackPanel>
-                        <ListBoxItem>
-                            
-                        </ListBoxItem>
+                        <ListBox x:Name="playlistBox" Margin="40,0,0,0">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </StackPanel>
                     
                 </StackPanel>

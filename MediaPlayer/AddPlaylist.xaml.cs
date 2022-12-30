@@ -19,6 +19,8 @@ namespace MediaPlayerProject
     /// </summary>
     public partial class AddPlaylist : Window
     {
+        public MediaPlayerProject.DataClass.Playlist NewPlaylist { get; set; }
+
         public AddPlaylist()
         {
             InitializeComponent();
@@ -35,6 +37,12 @@ namespace MediaPlayerProject
         private void Exit_Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NewPlaylist = new DataClass.Playlist(NamePlaylist.Text);
+            DialogResult = true;
         }
     }
 }
