@@ -1,4 +1,4 @@
-﻿using MediaPlayer.View;
+﻿using MediaPlayerProject.View;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ using System.Reflection.Emit;
 using Microsoft.Win32;
 using System.Windows.Threading;
 
-namespace MediaPlayer
+namespace MediaPlayerProject
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -30,7 +30,9 @@ namespace MediaPlayer
 
         // Khởi tạo tài nguyên
         private System.Windows.Controls.Button curBtn;
-        
+        private MediaPlayer Player = new MediaPlayer();
+        private DispatcherTimer Timer;
+
 
         private void changeView(UserControl view)
         {
@@ -84,6 +86,19 @@ namespace MediaPlayer
         {
             changeView(new Home());
             highlightBtn(HomeBtn);
+            PlayBtn.Visibility= Visibility.Collapsed;
+            Player.MediaOpened += Player_MediaOpened;
+        }
+
+        private void Player_MediaOpened(object sender, EventArgs e)
+        {
+            int hours = Player.NaturalDuration.TimeSpan.Hours;
+            int minutes = Player.NaturalDuration.TimeSpan.Minutes;
+            int seconds = Player.NaturalDuration.TimeSpan.Seconds;
+            totalTime.Text = $"{hours}:{minutes}:{seconds}";
+
+            // cập nhật max value của slider
+            slider.Maximum = Player.NaturalDuration.TimeSpan.TotalSeconds;
         }
 
         private void ButtonHome_Click(object sender, RoutedEventArgs e)
@@ -104,6 +119,15 @@ namespace MediaPlayer
             changeCurBtnTo(NowPlayingBtn);
         }
 
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            int hours = Player.Position.Hours;
+            int minutes = Player.Position.Minutes;
+            int seconds = Player.Position.Seconds;
+            slider.Value = hours*3600 + minutes*60 + seconds;
+            currentPosition.Text = $"{hours}:{minutes}:{seconds}";
+            Title = $"{hours}:{minutes}:{seconds}";
+        }
         private void OpenFile_Clicked(object sender, RoutedEventArgs e)
         {
             changeCurBtnTo(OpenFileBtn);
@@ -113,12 +137,98 @@ namespace MediaPlayer
             openFileScreen.Title = "Please select music to be played.";
             if (openFileScreen.ShowDialog() == true)
             {
-                Console.WriteLine(openFileScreen.FileName);
+                Player.Open(new Uri(openFileScreen.FileName,UriKind.Absolute));
+                Player.Play();
+                Timer = new DispatcherTimer();
+                Timer.Interval = new TimeSpan(0, 0, 0, 1, 0); ;
+                Timer.Tick += Timer_Tick;
+                Timer.Start();
             }
+            changeView(new Home());
+            changeCurBtnTo(HomeBtn);
+        }
 
+        private void PauseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            PauseBtn.Visibility = Visibility.Collapsed;
+            PlayBtn.Visibility = Visibility.Visible;
+            Player.Pause();
+            Timer.Stop();
+        }
 
-            changeView(new NowPlaying());
-            changeCurBtnTo(NowPlayingBtn);
+        private void PlayBtn_Click(object sender, RoutedEventArgs e)
+        {
+            PlayBtn.Visibility = Visibility.Collapsed;
+            PauseBtn.Visibility = Visibility.Visible;
+            Player.Play();
+            Timer.Start();
+        }
+
+        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            // Lay gia tri hien tai cua slide
+            // Cap nhat vao player
+
+            double value = slider.Value;
+            TimeSpan newPosition = TimeSpan.FromSeconds(value);
+            Player.Position = newPosition;
+        }
+
+        private void ChangeVolBtnIconTo(string type)
+        {
+            volumeBtn.Tag = type;
+        }
+
+        private void ProcessVolBtnIcon()
+        {
+            if (Player.Volume == 0)
+            {
+                if (volumeBtn.Tag.ToString() == "VolumeOff")
+                {
+                    ChangeVolBtnIconTo("VolumeLow");
+                    Player.Volume = 0.1;
+                }
+                else
+                {
+                    ChangeVolBtnIconTo("VolumeMute");
+                }
+            }
+            else if (Player.Volume < 0.3)
+            {
+                ChangeVolBtnIconTo("VolumeLow");
+            }
+            else if (Player.Volume <= 0.7)
+            {
+                ChangeVolBtnIconTo("VolumeMedium");
+            }
+            else if (Player.Volume > 0.7)
+            {
+                ChangeVolBtnIconTo("VolumeHigh");
+            }
+        }
+
+        private void sliderVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            // Lay gia tri hien tai cua volume slider
+            // Cap nhat vao player
+            double newVolume = sliderVolume.Value/10;
+            Player.Volume = newVolume;
+            ProcessVolBtnIcon();
+        }
+
+        private void volumeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (volumeBtn.Tag.ToString() != "VolumeOff")
+            {
+                Player.Volume = 0;
+                ChangeVolBtnIconTo("VolumeOff");
+            }
+            else
+            {
+                double newVolume = sliderVolume.Value / 10;
+                Player.Volume = newVolume;
+                ProcessVolBtnIcon();
+            }
         }
     }   
 }

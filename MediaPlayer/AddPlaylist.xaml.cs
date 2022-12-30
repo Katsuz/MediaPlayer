@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MediaPlayer
+namespace MediaPlayerProject
 {
     /// <summary>
     /// Interaction logic for AddPlaylist.xaml
