@@ -107,14 +107,17 @@
                     </Button>
                     
                     
-                    <Button Style="{StaticResource playerButton}">
+                    <Button Style="{StaticResource playerButton}" Click="Next_Click">
                         <Icon:PackIconMaterial Kind="SkipNext" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
-                    
+
+                    <!--SelectionEnd="{Binding ElementName=slider,Path=Value}"-->
+                    <!--ValueChanged="slider_ValueChanged"-->
                     <!--Slider-->
                     <TextBlock x:Name="currentPosition" Text="0:0:0" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
                     <Slider Style="{DynamicResource SliderStyle1}" x:Name="slider" IsSelectionRangeEnabled="True" VerticalAlignment="Center" 
-                            Value="0" Width="350" SelectionEnd="{Binding ElementName=slider,Path=Value}" ValueChanged="slider_ValueChanged"/>
+                            Value="0" Width="350" Thumb.DragCompleted="slider_DragCompleted"
+                            Thumb.DragStarted="slider_DragStarted"/>
                     <TextBlock x:Name="totalTime" d:Text="0:0:0" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
 
                     <Button Style="{StaticResource playerButton}">

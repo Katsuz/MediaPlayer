@@ -85,11 +85,6 @@ namespace MediaPlayerProject
             Application.Current.Shutdown();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             changeView(new Home());
@@ -145,6 +140,8 @@ namespace MediaPlayerProject
             Timer.Interval = new TimeSpan(0, 0, 0, 1, 0); ;
             Timer.Tick += Timer_Tick;
             Timer.Start();
+            PlayBtn.Visibility = Visibility.Collapsed;
+            PauseBtn.Visibility = Visibility.Visible;
         }
         private void OpenFile_Clicked(object sender, RoutedEventArgs e)
         {
@@ -180,15 +177,15 @@ namespace MediaPlayerProject
             Timer.Start();
         }
 
-        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            // Lay gia tri hien tai cua slide
-            // Cap nhat vao player
+        //private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    // Lay gia tri hien tai cua slide
+        //    // Cap nhat vao player
 
-            double value = slider.Value;
-            TimeSpan newPosition = TimeSpan.FromSeconds(value);
-            Player.Position = newPosition;
-        }
+        //    double value = slider.Value;
+        //    TimeSpan newPosition = TimeSpan.FromSeconds(value);
+        //    Player.Position = newPosition;
+        //}
 
         private void ChangeVolBtnIconTo(string type)
         {
@@ -274,8 +271,64 @@ namespace MediaPlayerProject
 
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
+            if (CurSongIndex != -1)
+            {
+                if (CurSongIndex > 0)
+                {
+                    CurSongIndex -= 1;
+                    OpenSong(testPlaylist[0].ListSong[CurSongIndex].AbsolutePath);
+                }
+                else
+                {
+                    CurSongIndex = testPlaylist[0].ListSong.Count - 1;
+                    OpenSong(testPlaylist[0].ListSong[CurSongIndex].AbsolutePath);
+                }
+            }
+        }
 
-            OpenSong(testPlaylist[0].ListSong[CurSongIndex + 1].AbsolutePath);
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurSongIndex != -1)
+            {
+                if (CurSongIndex < testPlaylist[0].ListSong.Count - 1)
+                {
+                    CurSongIndex += 1;
+                    OpenSong(testPlaylist[0].ListSong[CurSongIndex].AbsolutePath);
+                }
+                else
+                {
+                    CurSongIndex = 0;
+                    OpenSong(testPlaylist[0].ListSong[CurSongIndex].AbsolutePath);
+                }
+            }
+        }
+
+        private void slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            // Lay gia tri hien tai cua slide
+            // Cap nhat vao player
+
+            if (Player.HasAudio)
+            {
+                double value = slider.Value;
+                TimeSpan newPosition = TimeSpan.FromSeconds(value);
+                Player.Position = newPosition;
+                Player.Play();
+                Timer.Start();
+                PlayBtn.Visibility = Visibility.Collapsed;
+                PauseBtn.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void slider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            if (Player.HasAudio)
+            {
+                Player.Pause();
+                Timer.Stop();
+                PlayBtn.Visibility = Visibility.Visible;
+                PauseBtn.Visibility = Visibility.Collapsed;
+            }
         }
     }   
 }
