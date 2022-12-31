@@ -73,13 +73,13 @@
                         <StackPanel Orientation="Horizontal" Name="Playlist">
                             <TextBlock Text="Playlists" Style="{StaticResource menuTitle2}"/>
                             <Button Margin="40,0,0,0" Style="{StaticResource btnAddPlaylistMain}" Background="Transparent" 
-                                    Width="50" x:Name="addPlaylistBtn" Click="addPlaylistBtn_Click" >
+                                    Width="50" x:Name="addPlaylistBtn" Click="AddPlaylistBtn_Click" >
                                 <Icon:PackIconMaterial  Kind="PlaylistPlus" VerticalAlignment="Center" 
                                 FontWeight="Bold" FontSize="22" />
                             </Button>
                             
                         </StackPanel>
-                        <ListBox x:Name="playlistBox" Margin="40,0,0,0"  SelectionMode="Single" SelectionChanged="playlistBox_SelectionChanged" 
+                        <ListBox x:Name="playlistBox" Margin="40,0,0,0"  SelectionMode="Single" SelectionChanged="PlaylistBox_SelectionChanged" 
                                  IsSynchronizedWithCurrentItem="True" Style="{StaticResource ListBoxPlaylist}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -114,8 +114,8 @@
                     <!--Slider-->
                     <TextBlock x:Name="currentPosition" Text="0:0:0" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
                     <Slider Style="{DynamicResource SliderStyle1}" x:Name="slider" IsSelectionRangeEnabled="True" VerticalAlignment="Center" 
-                            Value="0" Width="350" Thumb.DragCompleted="slider_DragCompleted"
-                            Thumb.DragStarted="slider_DragStarted"/>
+                            Value="0" Width="350" Thumb.DragCompleted="Slider_DragCompleted"
+                            Thumb.DragStarted="Slider_DragStarted"/>
                     <TextBlock x:Name="totalTime" d:Text="0:0:0" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
 
                     <Button Style="{StaticResource playerButton}">
@@ -127,11 +127,11 @@
                     </Button>
                     
                     <!--Volume-->
-                    <Button Style="{StaticResource playerButton}" x:Name="volumeBtn" Click="volumeBtn_Click" Tag="VolumeHigh">
+                    <Button Style="{StaticResource playerButton}" x:Name="volumeBtn" Click="VolumeBtn_Click" Tag="VolumeHigh">
                         <Icon:PackIconMaterial Kind="{Binding ElementName=volumeBtn, Path=Tag}" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
                     <Slider Style="{DynamicResource SliderStyle1}" x:Name="sliderVolume" IsSelectionRangeEnabled="True" VerticalAlignment="Center" 
-                            Value="10" Width="120" SelectionEnd="{Binding ElementName=sliderVolume, Path=Value}" ValueChanged="sliderVolume_ValueChanged"/>
+                            Value="10" Width="120" SelectionEnd="{Binding ElementName=sliderVolume, Path=Value}" ValueChanged="SliderVolume_ValueChanged"/>
                 </StackPanel>
             </Border>
             

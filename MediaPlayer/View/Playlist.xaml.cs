@@ -26,7 +26,7 @@ namespace MediaPlayerProject.View
         public Playlist(DataClass.Playlist oldPlaylist, MainWindow mainWD)
         {
             InitializeComponent();
-            playlist = (DataClass.Playlist)oldPlaylist.Clone();
+            playlist = oldPlaylist;
             DataContext = playlist;
             mainWindow = mainWD;
         }

@@ -34,43 +34,42 @@ namespace MediaPlayerProject
         private System.Windows.Controls.Button curBtn;
         public MediaPlayer Player = new MediaPlayer();
         private DispatcherTimer Timer;
-        private Song testSong;
-        private ObservableCollection<MediaPlayerProject.DataClass.Playlist> testPlaylist = new ObservableCollection<MediaPlayerProject.DataClass.Playlist>();
+        private ObservableCollection<DataClass.Playlist> testPlaylist = new ObservableCollection<DataClass.Playlist>();
         public MediaPlayerProject.DataClass.Playlist CurPlaylist;
         public int CurSongIndex { get; set; }
-        
+        public ObservableCollection<DataClass.Playlist> TestPlaylist { get => testPlaylist; set => testPlaylist = value; }
 
-        private void changeView(UserControl view)
+        private void ChangeView(UserControl view)
         {
             MainDisplay.Children.Clear();
             MainDisplay.Children.Add(view);
         }
 
-        private void resetBtn()
+        private void ResetBtn()
         {
             Style style = Application.Current.FindResource("menuButton") as Style;
             curBtn.Style = style;
         }
 
-        private void highlightBtn(System.Windows.Controls.Button btnName)
+        private void HighlightBtn(System.Windows.Controls.Button btnName)
         {
             curBtn = btnName;
             Style style = Application.Current.FindResource("menuButtonChoosed") as Style;
             curBtn.Style = style;
         }
 
-        private void changeCurBtnTo(System.Windows.Controls.Button btnName)
+        private void ChangeCurBtnTo(System.Windows.Controls.Button btnName)
         {
-            resetBtn();
-            highlightBtn(btnName);
+            ResetBtn();
+            HighlightBtn(btnName);
         }
 
         public MainWindow()
         {
             InitializeComponent();
-            testPlaylist.Add(new MediaPlayerProject.DataClass.Playlist("test"));
-            CurPlaylist = testPlaylist[0];
-            playlistBox.ItemsSource = testPlaylist;
+            TestPlaylist.Add(new MediaPlayerProject.DataClass.Playlist("test"));
+            CurPlaylist = TestPlaylist[0];
+            playlistBox.ItemsSource = TestPlaylist;
             CurSongIndex = -1;
         }
 
@@ -89,8 +88,8 @@ namespace MediaPlayerProject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            changeView(new Home());
-            highlightBtn(HomeBtn);
+            ChangeView(new Home());
+            HighlightBtn(HomeBtn);
             PlayBtn.Visibility= Visibility.Collapsed;
             Player.MediaOpened += Player_MediaOpened;
         }
@@ -108,20 +107,20 @@ namespace MediaPlayerProject
 
         private void ButtonHome_Click(object sender, RoutedEventArgs e)
         {
-            changeView(new Home());
-            changeCurBtnTo(HomeBtn);
+            ChangeView(new Home());
+            ChangeCurBtnTo(HomeBtn);
         }
 
         private void BtnRecentPlayed_Click(object sender, RoutedEventArgs e)
         {
-            changeView(new RecentPlayed());
-            changeCurBtnTo(RecentPlayedBtn);
+            ChangeView(new RecentPlayed());
+            ChangeCurBtnTo(RecentPlayedBtn);
         }
 
         private void NowPlaying_Clicked(object sender, RoutedEventArgs e)
         {
-            changeView(new NowPlaying());
-            changeCurBtnTo(NowPlayingBtn);
+            ChangeView(new NowPlaying());
+            ChangeCurBtnTo(NowPlayingBtn);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -138,8 +137,7 @@ namespace MediaPlayerProject
         {
             Player.Open(new Uri(absolutePath, UriKind.Absolute));
             Player.Play();
-            Timer = new DispatcherTimer();
-            Timer.Interval = new TimeSpan(0, 0, 0, 1, 0); ;
+            Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 1, 0) };
             Timer.Tick += Timer_Tick;
             Timer.Start();
             PlayBtn.Visibility = Visibility.Collapsed;
@@ -147,20 +145,37 @@ namespace MediaPlayerProject
         }
         private void OpenFile_Clicked(object sender, RoutedEventArgs e)
         {
-            changeCurBtnTo(OpenFileBtn);
-            var openFileScreen = new OpenFileDialog();
-            openFileScreen.Multiselect= true;
-            openFileScreen.Filter = "Sound Files|*.mp3| Video Files|*.mp4";
-            openFileScreen.InitialDirectory = @"C:\";
-            openFileScreen.Title = "Please select music to be played.";
+            ChangeCurBtnTo(OpenFileBtn);
+            var openFileScreen = new OpenFileDialog
+            {
+                Multiselect = true,
+                Filter = "Sound Files|*.mp3| Video Files|*.mp4",
+                InitialDirectory = @"C:\",
+                Title = "Please select music to be played."
+            };
             if (openFileScreen.ShowDialog() == true)
             {
+                int oldIndex = CurSongIndex;
                 CurSongIndex = CurPlaylist.ListSong.Count;
                 CurPlaylist.addSongsToPlaylist(openFileScreen.FileNames);
-                OpenSong(CurPlaylist.ListSong[CurSongIndex].AbsolutePath);
+                if (CurSongIndex == CurPlaylist.ListSong.Count)
+                {
+                    CurSongIndex = oldIndex;
+                    string messageBoxText = "All choosed files had already been added to the playlist.";
+                    string caption = "Adding Music Notification";
+                    MessageBoxButton button = MessageBoxButton.OK;
+                    MessageBoxImage icon = MessageBoxImage.Information;
+                    MessageBoxResult result;
+
+                    result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                }
+                else
+                {
+                    OpenSong(CurPlaylist.ListSong[CurSongIndex].AbsolutePath);
+                }
             }
-            changeView(new Home());
-            changeCurBtnTo(HomeBtn);
+            ChangeView(new Home());
+            ChangeCurBtnTo(HomeBtn);
         }
 
         private void PauseBtn_Click(object sender, RoutedEventArgs e)
@@ -222,7 +237,7 @@ namespace MediaPlayerProject
             }
         }
 
-        private void sliderVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void SliderVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             // Lay gia tri hien tai cua volume slider
             // Cap nhat vao player
@@ -231,7 +246,7 @@ namespace MediaPlayerProject
             ProcessVolBtnIcon();
         }
 
-        private void volumeBtn_Click(object sender, RoutedEventArgs e)
+        private void VolumeBtn_Click(object sender, RoutedEventArgs e)
         {
             if (volumeBtn.Tag.ToString() != "VolumeOff")
             {
@@ -246,13 +261,13 @@ namespace MediaPlayerProject
             }
         }
 
-        private void addPlaylistBtn_Click(object sender, RoutedEventArgs e)
+        private void AddPlaylistBtn_Click(object sender, RoutedEventArgs e)
         {
             var addPlaylistWindow = new AddPlaylist();
             if (addPlaylistWindow.ShowDialog() == true)
             {
                 var newPlaylist = (MediaPlayerProject.DataClass.Playlist)addPlaylistWindow.NewPlaylist.Clone();
-                testPlaylist.Add(newPlaylist);
+                TestPlaylist.Add(newPlaylist);
             }
             else
             {
@@ -260,13 +275,13 @@ namespace MediaPlayerProject
             }
         }
 
-        private void playlistBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void PlaylistBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int i = playlistBox.SelectedIndex;
             if ( i >= 0)
             {
-                CurPlaylist = testPlaylist[i];
-                changeView(new View.Playlist(CurPlaylist, this));
+                CurPlaylist = TestPlaylist[i];
+                ChangeView(new View.Playlist(CurPlaylist, this));
             }
             playlistBox.SelectedIndex = -1;
         }
@@ -305,7 +320,7 @@ namespace MediaPlayerProject
             }
         }
 
-        private void slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        private void Slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
             // Lay gia tri hien tai cua slide
             // Cap nhat vao player
@@ -322,7 +337,7 @@ namespace MediaPlayerProject
             }
         }
 
-        private void slider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        private void Slider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
             if (Player.HasAudio)
             {
