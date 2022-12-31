@@ -17,7 +17,7 @@ namespace MediaPlayerProject.DataClass
         public DateTime DateAdded { get; set; }
         public TimeSpan Duration { get; set; }
         public string AbsolutePath {get; set; }
-        public BitmapImage thumnail { get; set; }
+        public BitmapImage Thumnail { get; set; }
 
         public Song(int iD, string name, string singer, string album, TimeSpan duration, string absolutePath, BitmapImage thumnail)
         {
@@ -28,7 +28,7 @@ namespace MediaPlayerProject.DataClass
             DateAdded = new DateTime();
             Duration = duration;
             AbsolutePath = absolutePath;
-            this.thumnail = thumnail;
+            this.Thumnail = thumnail;
         }
 
         public Song(string name)

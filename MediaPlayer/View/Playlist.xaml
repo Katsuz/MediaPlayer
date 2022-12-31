@@ -12,8 +12,8 @@
         <converter:RelativeToAbsolutePath x:Key="absoluteConverter"/>
         <converter:DateTimeConverter x:Key="datetimeConverter"/>
         <converter:DurationConverter x:Key="durationConverter"/>
+        <converter:BitmapImageToBitmapSourceConverter x:Key="imageSourceConverter"/>
     </UserControl.Resources>
-
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -25,8 +25,9 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions >
-            <StackPanel Grid.Column="0" Margin="30 0 0 0">
-                <Image Source="{Binding }"></Image>
+
+            <StackPanel Grid.Column="0" Margin="30 10 0 0">
+                <Image Source="{Binding CoverImage}" Width="150" Height="150"></Image>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Vertical">
                 <TextBlock Text="{Binding Name}" FontSize="28" FontWeight="Bold" Margin="15 50 0 15" Foreground="#444444"/>
@@ -48,7 +49,7 @@
                 <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Column="0" Grid.Row="0">
-                <Button Style="{StaticResource playlistScreenButton}" Click="playAll_Click" FontSize="15">
+                <Button Style="{StaticResource playlistScreenButton}" Click="PlayAll_Click" FontSize="15">
                     <Grid>
                         <Icon:PackIconMaterial Kind="Play" Foreground="#363636" VerticalAlignment="Center"/>
                         <TextBlock Text="Play all" Margin="20 0 0 0" Foreground="#363636"/>
@@ -56,7 +57,7 @@
                 </Button>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="0">
-                <Button Style="{StaticResource playlistScreenButton}" FontSize="15">
+                <Button Style="{StaticResource playlistScreenButton}" FontSize="15" Click="AddMusic_Click">
                     <Grid >
                         <Icon:PackIconMaterial Kind="PlusBox" Foreground="#363636" VerticalAlignment="Center"/>
                         <TextBlock Text="Add to" Margin="20 0 0 0" Foreground="#363636"/>
@@ -64,7 +65,7 @@
                 </Button>
             </StackPanel>
             <StackPanel Grid.Column="2" Grid.Row="0">
-                <Button Style="{StaticResource playlistScreenButton}" Width="124" FontSize="15" >
+                <Button Style="{StaticResource playlistScreenButton}" Width="124" FontSize="15"  Click="DeletePlaylist_Click">
                     <Grid Width="136" VerticalAlignment="Center">
                         <Icon:PackIconMaterial Kind="TrashCan" Foreground="#363636" VerticalAlignment="Center"/>
                         <TextBlock Text="Delete Playlist" Foreground="#363636" HorizontalAlignment="Right" Width="115"/>
@@ -90,10 +91,10 @@
                         <TextBlock Text="{Binding Album}" TextWrapping="WrapWithOverflow"></TextBlock>
                         <TextBlock Text="{Binding DateAdded, Converter={StaticResource datetimeConverter}}"></TextBlock>
                         <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter}}"></TextBlock>
-                        <Button Tag ="{Binding ID}" Width="80" Height="55" Click="playSingle_Click">
+                        <Button Tag ="{Binding ID}" Width="80" Height="55" Click="PlaySingle_Click">
                             <Icon:PackIconMaterial Kind="Play"/>
                         </Button>
-                        <Button Tag ="{Binding ID}" Width="80" Height="55" Click="deleteSingle_Click">
+                        <Button Tag ="{Binding ID}" Width="80" Height="55" Click="DeleteSingle_Click">
                             <Icon:PackIconMaterial Kind="TrashCan" />
                         </Button>
                     </UniformGrid>

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace MediaPlayerProject.DataClass
@@ -22,6 +23,7 @@ namespace MediaPlayerProject.DataClass
         //public Song PlayingSong { get; private set; }
 
         public string Name {get; set;}
+        public BitmapImage CoverImage { get; set; }
 
         public Playlist(string name)
         {
@@ -49,7 +51,6 @@ namespace MediaPlayerProject.DataClass
             {
                 if ((this.ListSong.Where(item => item.AbsolutePath == file).Count() != 0) && (this.NumberOfSong != 0))
                 {
-                    Console.WriteLine(this.ListSong.Where(item => item.AbsolutePath == file).Count());
                     continue;
                 }
                 else
@@ -64,15 +65,26 @@ namespace MediaPlayerProject.DataClass
                     TagLib.IPicture pic = songFile.Tag.Pictures[0];
                     MemoryStream ms = new MemoryStream(pic.Data.Data);
                     ms.Seek(0, SeekOrigin.Begin);
-
+                    
                     // ImageSource for System.Windows.Controls.Image
                     BitmapImage bitmap = new BitmapImage();
                     bitmap.BeginInit();
+                    bitmap.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                    bitmap.UriSource = null;
                     bitmap.StreamSource = ms;
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
                     bitmap.EndInit();
+                    bitmap.Freeze();
+
+                    if (this.NumberOfSong == 0)
+                    {
+                        this.CoverImage = bitmap;
+                    }
+
                     this.NumberOfSong += 1;
                     this.NextID += 1;
                     int ID = this.NextID;
+
                     this.AddSong(new Song(ID, name, singer, album, duration, absolutePath, bitmap));
                 }
             }

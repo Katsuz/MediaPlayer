@@ -38,8 +38,9 @@ namespace MediaPlayerProject
         public MediaPlayerProject.DataClass.Playlist CurPlaylist;
         public int CurSongIndex { get; set; }
         public ObservableCollection<DataClass.Playlist> TestPlaylist { get => testPlaylist; set => testPlaylist = value; }
+        public DataClass.Playlist RecentOpened { get; set; }
 
-        private void ChangeView(UserControl view)
+        public void ChangeView(UserControl view)
         {
             MainDisplay.Children.Clear();
             MainDisplay.Children.Add(view);
@@ -58,7 +59,7 @@ namespace MediaPlayerProject
             curBtn.Style = style;
         }
 
-        private void ChangeCurBtnTo(System.Windows.Controls.Button btnName)
+        public void ChangeCurBtnTo(System.Windows.Controls.Button btnName)
         {
             ResetBtn();
             HighlightBtn(btnName);
@@ -67,8 +68,9 @@ namespace MediaPlayerProject
         public MainWindow()
         {
             InitializeComponent();
-            TestPlaylist.Add(new MediaPlayerProject.DataClass.Playlist("test"));
-            CurPlaylist = TestPlaylist[0];
+            RecentOpened = new MediaPlayerProject.DataClass.Playlist("Recent Opened Songs");
+            TestPlaylist.Add(RecentOpened);
+            CurPlaylist = RecentOpened;
             playlistBox.ItemsSource = TestPlaylist;
             CurSongIndex = -1;
         }
@@ -150,18 +152,18 @@ namespace MediaPlayerProject
             {
                 Multiselect = true,
                 Filter = "Sound Files|*.mp3| Video Files|*.mp4",
-                InitialDirectory = @"C:\",
+                //InitialDirectory = @"C:\",
                 Title = "Please select music to be played."
             };
             if (openFileScreen.ShowDialog() == true)
             {
                 int oldIndex = CurSongIndex;
-                CurSongIndex = CurPlaylist.ListSong.Count;
-                CurPlaylist.addSongsToPlaylist(openFileScreen.FileNames);
-                if (CurSongIndex == CurPlaylist.ListSong.Count)
+                CurSongIndex = RecentOpened.ListSong.Count;
+                RecentOpened.addSongsToPlaylist(openFileScreen.FileNames);
+                if (CurSongIndex == RecentOpened.ListSong.Count)
                 {
                     CurSongIndex = oldIndex;
-                    string messageBoxText = "All choosed files had already been added to the playlist.";
+                    string messageBoxText = "All choosed files had already been opened before.";
                     string caption = "Adding Music Notification";
                     MessageBoxButton button = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
@@ -171,7 +173,8 @@ namespace MediaPlayerProject
                 }
                 else
                 {
-                    OpenSong(CurPlaylist.ListSong[CurSongIndex].AbsolutePath);
+                    CurPlaylist = RecentOpened;
+                    OpenSong(RecentOpened.ListSong[CurSongIndex].AbsolutePath);
                 }
             }
             ChangeView(new Home());

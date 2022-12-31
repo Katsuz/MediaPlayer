@@ -76,6 +76,7 @@
     <Compile Include="AddPlaylist.xaml.cs">
       <DependentUpon>AddPlaylist.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\BitmapImageToBitmapSourceConverter.cs" />
     <Compile Include="Converter\DateTimeConverter.cs" />
     <Compile Include="Converter\DurationConverter.cs" />
     <Compile Include="Converter\RelativeToAbsolutePath.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,16 +34,16 @@ namespace MediaPlayerProject.View
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
-        private void playAll_Click(object sender, RoutedEventArgs e)
+        private void PlayAll_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.CurSongIndex = 0;
             mainWindow.OpenSong(playlist.ListSong[0].AbsolutePath);
         }
 
-        private void playSingle_Click(object sender, RoutedEventArgs e)
+        private void PlaySingle_Click(object sender, RoutedEventArgs e)
         {
             Button selected = (Button)sender;
             int songID = (int)selected.Tag;
@@ -57,7 +58,7 @@ namespace MediaPlayerProject.View
             mainWindow.OpenSong(selectedSong.AbsolutePath);
         }
 
-        private void deleteSingle_Click(object sender, RoutedEventArgs e)
+        private void DeleteSingle_Click(object sender, RoutedEventArgs e)
         {
             Button selected = (Button)sender;
             int songID = (int)selected.Tag;
@@ -72,7 +73,46 @@ namespace MediaPlayerProject.View
             if (selectedSong != null)
             {
                 playlist.RemoveSong(selectedSong);
-            }   
+            }
+        }
+
+        private void AddMusic_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileScreen = new OpenFileDialog
+            {
+                Multiselect = true,
+                Filter = "Sound Files|*.mp3| Video Files|*.mp4",
+                //InitialDirectory = @"C:\",
+                Title = "Please select music to be played."
+            };
+            if (openFileScreen.ShowDialog() == true)
+            {
+                int oldIndex = mainWindow.CurSongIndex;
+                mainWindow.CurSongIndex = playlist.ListSong.Count;
+                playlist.addSongsToPlaylist(openFileScreen.FileNames);
+                if (mainWindow.CurSongIndex == playlist.ListSong.Count)
+                {
+                    mainWindow.CurSongIndex = oldIndex;
+                    string messageBoxText = "All choosed files had already been added to this playlist before.";
+                    string caption = "Adding Music Notification";
+                    MessageBoxButton button = MessageBoxButton.OK;
+                    MessageBoxImage icon = MessageBoxImage.Information;
+                    MessageBoxResult result;
+
+                    result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                }
+                else
+                {
+                    mainWindow.OpenSong(playlist.ListSong[mainWindow.CurSongIndex].AbsolutePath);
+                }
+            }
+        }
+
+        private void DeletePlaylist_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.TestPlaylist.Remove(playlist);
+            mainWindow.ChangeView(new Home());
+            mainWindow.ChangeCurBtnTo(mainWindow.HomeBtn);
         }
     }
 }
