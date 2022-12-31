@@ -78,6 +78,7 @@ namespace MediaPlayerProject
         public MainWindow()
         {
             InitializeComponent();
+            curBtn = HomeBtn;
             RecentOpened = new MediaPlayerProject.DataClass.Playlist("Recent Opened Songs");
             TestPlaylist.Add(RecentOpened);
             CurPlaylist = RecentOpened;
@@ -213,7 +214,7 @@ namespace MediaPlayerProject
 
                 CurSong = NextList[0];
                 NextList.RemoveAt(0);
-                if (repeat) { NextList.Add(CurSong); }
+                if (repeat) { NextList.Add(PreviousList.Last()); }
                 return;
             }
 
@@ -224,7 +225,7 @@ namespace MediaPlayerProject
                 {
                     NextList.Insert(0, CurSong);
                 }
-                else if(NextList.First().AbsolutePath != CurSong.AbsolutePath || NextList.Count == 0)
+                else if(NextList.First().AbsolutePath != CurSong.AbsolutePath)
                 {
                     NextList.Insert(0, CurSong);
                 }
@@ -379,6 +380,7 @@ namespace MediaPlayerProject
             {
                 CurPlaylist = TestPlaylist[i];
                 ChangeView(new View.Playlist(CurPlaylist, this));
+                ResetBtn();
             }
             playlistBox.SelectedIndex = -1;
         }
@@ -388,7 +390,6 @@ namespace MediaPlayerProject
             if (CurSongIndex != -1)
             {
                 UpdateNextList(false, false, true, IsShuffle, IsRepeat);
-                ResetBtn();
                 OpenSong(CurSong.AbsolutePath);
             }
         }
