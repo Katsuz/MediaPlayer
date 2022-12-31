@@ -20,9 +20,12 @@ namespace MediaPlayerProject.View
     /// </summary>
     public partial class Home : UserControl
     {
-        public Home()
+        private MainWindow mainWindow;
+        public Home(MainWindow mainWD)
         {
             InitializeComponent();
+            mainWindow = mainWD;
+            DataContext = mainWindow.CurSong;
         }
     }
 }

@@ -40,7 +40,8 @@ namespace MediaPlayerProject.View
         private void PlayAll_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.CurSongIndex = 0;
-            mainWindow.OpenSong(playlist.ListSong[0].AbsolutePath);
+            mainWindow.CurSong = playlist.ListSong[0];
+            mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
         }
 
         private void PlaySingle_Click(object sender, RoutedEventArgs e)
@@ -55,6 +56,7 @@ namespace MediaPlayerProject.View
                     selectedSong = playlist.ListSong[i];
                 }
             }
+            mainWindow.CurSong = selectedSong;
             mainWindow.OpenSong(selectedSong.AbsolutePath);
         }
 
@@ -72,7 +74,20 @@ namespace MediaPlayerProject.View
             }
             if (selectedSong != null)
             {
-                playlist.RemoveSong(selectedSong);
+                if (mainWindow.CurSong == selectedSong)
+                {
+                    playlist.RemoveSong(selectedSong);
+                    mainWindow.CurSong = mainWindow.CurPlaylist.ListSong.First();
+                    mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
+                    mainWindow.PauseBtn.Visibility = Visibility.Collapsed;
+                    mainWindow.PlayBtn.Visibility = Visibility.Visible;
+                    mainWindow.Player.Pause();
+                    mainWindow.Timer.Stop();
+                }    
+                else
+                {
+                    playlist.RemoveSong(selectedSong);
+                }    
             }
         }
 
@@ -111,7 +126,7 @@ namespace MediaPlayerProject.View
         private void DeletePlaylist_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.TestPlaylist.Remove(playlist);
-            mainWindow.ChangeView(new Home());
+            mainWindow.ChangeView(new Home(mainWindow));
             mainWindow.ChangeCurBtnTo(mainWindow.HomeBtn);
         }
     }

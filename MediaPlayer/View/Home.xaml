@@ -15,15 +15,15 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Playing" Style="{StaticResource TitleDisplay}" Grid.Row="0"/>
-        <Border Grid.Row="1">
-            
-        </Border>
-        <StackPanel Grid.Row="2">
-            
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+            <Image Source="{Binding Thumnail}" Width="250" Height="250"></Image>
+        </StackPanel>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding Name}"></TextBlock>
         </StackPanel>
 
-        <StackPanel Grid.Row="3">
-
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding Singer}"></TextBlock>
         </StackPanel>
     </Grid>
 </UserControl>
