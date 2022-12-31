@@ -162,47 +162,79 @@ namespace MediaPlayerProject
             PauseBtn.Visibility = Visibility.Visible;
         }
 
-        public void MakeNextList(bool shuffle)
+        public void ShuffleNextList()
+        {
+            var rnd = new Random();
+            var listSong = NextList.OrderBy(item => rnd.Next());
+            NextList = new ObservableCollection<Song>();
+            foreach (Song song in listSong)
+            {
+                NextList.Add(song);
+            }
+        }
+
+        public void CutShortNextList()
+        {
+            for (int i = 0; i < NextList.Count; i++)
+            {
+                if (NextList[i].AbsolutePath != CurSong.AbsolutePath)
+                {
+                    PreviousList.Add(NextList[i]);
+                    NextList.RemoveAt(i);
+                    i -= 1;
+                }    
+                else
+                {
+                    NextList.RemoveAt(i);
+                    break;
+                }    
+            }
+        }
+
+        public void MakeNextList(bool shuffle, bool repeatTime)
         {
             NextList = new ObservableCollection<Song>();
-            if (shuffle)
+            foreach (Song song in CurPlaylist.ListSong)
             {
-                var rnd = new Random();
-                var listSong = CurPlaylist.ListSong.OrderBy(item => rnd.Next());
-                foreach (Song song in listSong)
-                {
-                    if (song.AbsolutePath != CurSong.AbsolutePath)
-                    {
-                        NextList.Add(new Song(song.ID, song.Name, song.Singer, song.Album, song.Duration, song.AbsolutePath, song.Thumnail));
-                    }
-                }
+                NextList.Add(song);
+                //if (song.AbsolutePath != CurSong.AbsolutePath)
+                //{
+                //    //NextList.Add(new Song(song.ID, song.Name, song.Singer, song.Album, song.Duration, song.AbsolutePath, song.Thumnail));
+                //    NextList.Add(song);
+                //}
             }
+            if (!repeatTime)
+            {
+                CutShortNextList();
+            }    
             else
             {
-                foreach (Song song in CurPlaylist.ListSong)
-                {
-                    if (song.AbsolutePath != CurSong.AbsolutePath)
-                    {
-                        NextList.Add(new Song(song.ID, song.Name, song.Singer, song.Album, song.Duration, song.AbsolutePath, song.Thumnail));
-                    }
-                }
-            }    
-            
-            PreviousList= new ObservableCollection<Song>();
-  
+                CurSong = NextList[0];
+                CutShortNextList();
+            }
+            if (shuffle) { ShuffleNextList(); }
+
+            PreviousList = new ObservableCollection<Song>();
         }
 
         public void UpdateNextList(bool needNewOne,bool next, bool previous, bool shuffle, bool repeat)
         {
             if (needNewOne) 
             { 
-                MakeNextList(shuffle);
+                MakeNextList(shuffle, false);
                 return;
             }
 
             if (next)
             {
-                if (NextList.Count == 0) { return; }
+                if (NextList.Count == 0)
+                {
+                    if (repeat)
+                    {
+                        MakeNextList(shuffle, true);
+                    }
+                    return;
+                }
                 if (PreviousList.Count == 0)
                 {
                     PreviousList.Add(CurSong);
@@ -214,7 +246,6 @@ namespace MediaPlayerProject
 
                 CurSong = NextList[0];
                 NextList.RemoveAt(0);
-                if (repeat) { NextList.Add(PreviousList.Last()); }
                 return;
             }
 
@@ -378,8 +409,8 @@ namespace MediaPlayerProject
             int i = playlistBox.SelectedIndex;
             if ( i >= 0)
             {
-                CurPlaylist = TestPlaylist[i];
-                ChangeView(new View.Playlist(CurPlaylist, this));
+                //CurPlaylist = TestPlaylist[i];
+                ChangeView(new View.Playlist(TestPlaylist[i], this));
                 ResetBtn();
             }
             playlistBox.SelectedIndex = -1;
@@ -443,6 +474,7 @@ namespace MediaPlayerProject
                 ShuffleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.Shuffle;
                 IsShuffle = true;
             }
+            MakeNextList(IsShuffle, false);
         }
 
         private void Repeat_Click(object sender, RoutedEventArgs e)

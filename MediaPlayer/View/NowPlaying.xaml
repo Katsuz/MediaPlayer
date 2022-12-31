@@ -28,7 +28,8 @@
 
 
         <TextBlock Text="Next: " Style="{StaticResource TitleDisplay}" Margin="50 10 0 0"/>
-        <ListView Margin="20 10 0 0" x:Name="NextListView" SelectionMode="Single" BorderThickness="0">
+        <ListView Margin="20 10 0 0" x:Name="NextListView" SelectionMode="Single" BorderThickness="0"
+                  ItemsSource="{Binding NextList}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Height="30" Margin="60 10 0 0" >

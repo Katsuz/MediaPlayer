@@ -39,8 +39,10 @@ namespace MediaPlayerProject.View
 
         private void PlayAll_Click(object sender, RoutedEventArgs e)
         {
+            mainWindow.CurPlaylist = playlist;
             mainWindow.CurSongIndex = 0;
             mainWindow.CurSong = playlist.ListSong[0];
+            mainWindow.MakeNextList(mainWindow.IsShuffle, false);
             mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
         }
 
@@ -57,6 +59,8 @@ namespace MediaPlayerProject.View
                 }
             }
             mainWindow.CurSong = selectedSong;
+            mainWindow.CurPlaylist = playlist;
+            mainWindow.MakeNextList(mainWindow.IsShuffle, false);
             mainWindow.OpenSong(selectedSong.AbsolutePath);
         }
 
@@ -74,33 +78,34 @@ namespace MediaPlayerProject.View
             }
             if (selectedSong != null)
             {
-                if (mainWindow.CurSong == selectedSong)
-                {
-                    playlist.RemoveSong(selectedSong);
-                    if (mainWindow.CurPlaylist.ListSong.Count != 0)
-                    {
-                        mainWindow.CurSong = mainWindow.CurPlaylist.ListSong.First();
-                    }
-                    else if (mainWindow.RecentOpened.ListSong.Count != 0)
-                    {
-                        mainWindow.CurSong = mainWindow.RecentOpened.ListSong.First();
-                        mainWindow.CurPlaylist = mainWindow.RecentOpened;
-                    }    
-                    else
-                    {
-                        mainWindow.CurSong = new DataClass.Song("Open a Song to play");
-                        mainWindow.CurPlaylist = mainWindow.RecentOpened;
-                    }    
-                    mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
-                    mainWindow.PauseBtn.Visibility = Visibility.Collapsed;
-                    mainWindow.PlayBtn.Visibility = Visibility.Visible;
-                    mainWindow.Player.Pause();
-                    mainWindow.Timer.Stop();
-                }    
-                else
-                {
-                    playlist.RemoveSong(selectedSong);
-                }    
+                playlist.RemoveSong(selectedSong);
+                //if (mainWindow.CurSong == selectedSong)
+                //{
+                //    playlist.RemoveSong(selectedSong);
+                //    if (mainWindow.CurPlaylist.ListSong.Count != 0)
+                //    {
+                //        mainWindow.CurSong = mainWindow.CurPlaylist.ListSong.First();
+                //    }
+                //    else if (mainWindow.RecentOpened.ListSong.Count != 0)
+                //    {
+                //        mainWindow.CurSong = mainWindow.RecentOpened.ListSong.First();
+                //        mainWindow.CurPlaylist = mainWindow.RecentOpened;
+                //    }    
+                //    else
+                //    {
+                //        mainWindow.CurSong = new DataClass.Song("Open a Song to play");
+                //        mainWindow.CurPlaylist = mainWindow.RecentOpened;
+                //    }    
+                //    mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
+                //    mainWindow.PauseBtn.Visibility = Visibility.Collapsed;
+                //    mainWindow.PlayBtn.Visibility = Visibility.Visible;
+                //    mainWindow.Player.Pause();
+                //    mainWindow.Timer.Stop();
+                //}    
+                //else
+                //{
+                //    playlist.RemoveSong(selectedSong);
+                //}    
             }
         }
 
@@ -131,8 +136,8 @@ namespace MediaPlayerProject.View
                 }
                 else
                 {
-                    mainWindow.CurSong = playlist.ListSong[mainWindow.CurSongIndex];
-                    mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
+                    //mainWindow.CurSong = playlist.ListSong[mainWindow.CurSongIndex];
+                    //mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace MediaPlayerProject.View
             InitializeComponent();
             mainWindow = mainWD;
             DataContext = mainWD;
-            NextListView.ItemsSource = mainWindow.NextList;
+            //NextListView.ItemsSource = mainWindow.NextList;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
