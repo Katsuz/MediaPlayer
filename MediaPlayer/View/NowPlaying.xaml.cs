@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,18 @@ namespace MediaPlayerProject.View
     /// <summary>
     /// Interaction logic for NowPlaying.xaml
     /// </summary>
-    public partial class NowPlaying : UserControl
+    public partial class NowPlaying : UserControl, INotifyPropertyChanged
     {
-        public NowPlaying()
+        private MainWindow mainWindow;
+        private DataClass.Playlist playlist;
+        public NowPlaying(MainWindow mainWD)
         {
             InitializeComponent();
+            mainWindow = mainWD;
+            DataContext = mainWD;
+            NextListView.ItemsSource = mainWindow.CurPlaylist.ListSong;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

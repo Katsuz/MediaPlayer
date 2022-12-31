@@ -131,7 +131,8 @@ namespace MediaPlayerProject.View
                 }
                 else
                 {
-                    mainWindow.OpenSong(playlist.ListSong[mainWindow.CurSongIndex].AbsolutePath);
+                    mainWindow.CurSong = playlist.ListSong[mainWindow.CurSongIndex];
+                    mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
                 }
             }
         }

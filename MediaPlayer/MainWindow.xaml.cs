@@ -19,6 +19,7 @@ using Microsoft.Win32;
 using System.Windows.Threading;
 using MediaPlayerProject.DataClass;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace MediaPlayerProject
 {
@@ -27,7 +28,7 @@ namespace MediaPlayerProject
     /// </summary>
     /// 
 
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
 
         // Khởi tạo tài nguyên
@@ -36,6 +37,9 @@ namespace MediaPlayerProject
         public DispatcherTimer Timer;
         private ObservableCollection<DataClass.Playlist> testPlaylist = new ObservableCollection<DataClass.Playlist>();
         public MediaPlayerProject.DataClass.Playlist CurPlaylist;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public int CurSongIndex { get; set; }
         public ObservableCollection<DataClass.Playlist> TestPlaylist { get => testPlaylist; set => testPlaylist = value; }
         public DataClass.Playlist RecentOpened { get; set; }
@@ -123,7 +127,7 @@ namespace MediaPlayerProject
 
         private void NowPlaying_Clicked(object sender, RoutedEventArgs e)
         {
-            ChangeView(new NowPlaying());
+            ChangeView(new NowPlaying(this));
             ChangeCurBtnTo(NowPlayingBtn);
         }
 

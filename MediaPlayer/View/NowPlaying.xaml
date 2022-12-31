@@ -4,27 +4,46 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MediaPlayerProject.View"
+             xmlns:converter="clr-namespace:MediaPlayerProject.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="830">
+    <UserControl.Resources>
+        <converter:RelativeToAbsolutePath x:Key="absoluteConverter"/>
+        <converter:DateTimeConverter x:Key="datetimeConverter"/>
+        <converter:DurationConverter x:Key="durationConverter"/>
+        <converter:BitmapImageToBitmapSourceConverter x:Key="imageSourceConverter"/>
+    </UserControl.Resources>
     <StackPanel Background="White">
-        <TextBlock Text="Now Playing: " Style="{StaticResource TitleDisplay}" Margin="50 100 0 0"/>
-        <Grid Height="30" Margin="60 10 0 0" >
+        <TextBlock Text="Now Playing: " Style="{StaticResource TitleDisplay}" Margin="50 100 0 0" />
+        <Grid Height="30" Margin="60 10 0 0"  x:Name="NowPlaying_row" DataContext="{Binding CurSong}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Ten bai hat" VerticalAlignment="Center" Grid.Column="0" FontSize="15"/>
-                <TextBlock Text="Tac gia" VerticalAlignment="Center" Grid.Column="1" FontSize="15"/>
-                <TextBlock Text="Time" VerticalAlignment="Center" Grid.Column="2" FontSize="15"/>
+                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="0" FontSize="15"/>
+                <TextBlock Text="{Binding Singer}" VerticalAlignment="Center" Grid.Column="1" FontSize="15"/>
+            <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter} }" VerticalAlignment="Center" Grid.Column="2" FontSize="15"/>
         </Grid>
-       
-        
+
+
         <TextBlock Text="Next: " Style="{StaticResource TitleDisplay}" Margin="50 10 0 0"/>
-        <ListView Margin="60 10 0 0">
-            <DataTemplate>
-                
-            </DataTemplate>
+        <ListView Margin="60 10 0 0" x:Name="NextListView" SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="30" Margin="60 10 0 0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="0" FontSize="15"/>
+                        <TextBlock Text="{Binding Singer}" VerticalAlignment="Center" Grid.Column="1" FontSize="15"/>
+                        <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter} }" VerticalAlignment="Center" Grid.Column="2" FontSize="15"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
+
     </StackPanel>
 </UserControl>
