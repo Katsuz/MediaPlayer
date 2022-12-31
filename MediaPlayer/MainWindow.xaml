@@ -118,12 +118,12 @@
                             Thumb.DragStarted="Slider_DragStarted"/>
                     <TextBlock x:Name="totalTime" d:Text="0:0:0" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
 
-                    <Button Style="{StaticResource playerButton}">
-                        <Icon:PackIconMaterial Kind="Shuffle" Style="{StaticResource playerButtonIcon}"/>
+                    <Button Style="{StaticResource playerButton}" Click="Shuffle_Click">
+                        <Icon:PackIconMaterial x:Name="ShuffleIcon" Kind="ShuffleDisabled" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
 
-                    <Button Style="{StaticResource playerButton}">
-                        <Icon:PackIconMaterial Kind="Repeat" Style="{StaticResource playerButtonIcon}"/>
+                    <Button Style="{StaticResource playerButton}" Click="Repeat_Click">
+                        <Icon:PackIconMaterial x:Name="RepeatIcon" Kind="RepeatOff" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
                     
                     <!--Volume-->

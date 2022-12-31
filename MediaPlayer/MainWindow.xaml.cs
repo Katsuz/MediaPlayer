@@ -20,6 +20,7 @@ using System.Windows.Threading;
 using MediaPlayerProject.DataClass;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Controls.Primitives;
 
 namespace MediaPlayerProject
 {
@@ -44,6 +45,11 @@ namespace MediaPlayerProject
         public ObservableCollection<DataClass.Playlist> TestPlaylist { get => testPlaylist; set => testPlaylist = value; }
         public DataClass.Playlist RecentOpened { get; set; }
         public DataClass.Song CurSong { get; set; }
+
+        public ObservableCollection<Song> NextList { get; set; }
+        public ObservableCollection<Song> PreviousList { get; set; }
+        public bool IsRepeat { get; set; }
+        public bool IsShuffle { get; set; }
         public void ChangeView(UserControl view)
         {
             MainDisplay.Children.Clear();
@@ -100,6 +106,8 @@ namespace MediaPlayerProject
             PauseBtn.Visibility= Visibility.Collapsed;
             PlayBtn.Visibility= Visibility.Visible;
             Player.MediaOpened += Player_MediaOpened;
+            IsRepeat = false;
+            IsShuffle= false;
         }
 
         private void Player_MediaOpened(object sender, EventArgs e)
@@ -152,6 +160,81 @@ namespace MediaPlayerProject
             PlayBtn.Visibility = Visibility.Collapsed;
             PauseBtn.Visibility = Visibility.Visible;
         }
+
+        public void MakeNextList(bool shuffle)
+        {
+            NextList = new ObservableCollection<Song>();
+            if (shuffle)
+            {
+                var rnd = new Random();
+                var listSong = CurPlaylist.ListSong.OrderBy(item => rnd.Next());
+                foreach (Song song in listSong)
+                {
+                    if (song.AbsolutePath != CurSong.AbsolutePath)
+                    {
+                        NextList.Add(new Song(song.ID, song.Name, song.Singer, song.Album, song.Duration, song.AbsolutePath, song.Thumnail));
+                    }
+                }
+            }
+            else
+            {
+                foreach (Song song in CurPlaylist.ListSong)
+                {
+                    if (song.AbsolutePath != CurSong.AbsolutePath)
+                    {
+                        NextList.Add(new Song(song.ID, song.Name, song.Singer, song.Album, song.Duration, song.AbsolutePath, song.Thumnail));
+                    }
+                }
+            }    
+            
+            PreviousList= new ObservableCollection<Song>();
+  
+        }
+
+        public void UpdateNextList(bool needNewOne,bool next, bool previous, bool shuffle, bool repeat)
+        {
+            if (needNewOne) 
+            { 
+                MakeNextList(shuffle);
+                return;
+            }
+
+            if (next)
+            {
+                if (NextList.Count == 0) { return; }
+                if (PreviousList.Count == 0)
+                {
+                    PreviousList.Add(CurSong);
+                }
+                else if (PreviousList.Last().AbsolutePath != CurSong.AbsolutePath)
+                {
+                    PreviousList.Add(CurSong);
+                }    
+
+                CurSong = NextList[0];
+                NextList.RemoveAt(0);
+                if (repeat) { NextList.Add(CurSong); }
+                return;
+            }
+
+            if (previous)
+            {
+                if (PreviousList.Count == 0) { return; }
+                if (NextList.Count == 0)
+                {
+                    NextList.Insert(0, CurSong);
+                }
+                else if(NextList.First().AbsolutePath != CurSong.AbsolutePath || NextList.Count == 0)
+                {
+                    NextList.Insert(0, CurSong);
+                }
+
+                CurSong = PreviousList.Last();
+                PreviousList.Remove(PreviousList.Last());
+                return;
+            }
+        }
+
         private void OpenFile_Clicked(object sender, RoutedEventArgs e)
         {
             ChangeCurBtnTo(OpenFileBtn);
@@ -182,6 +265,7 @@ namespace MediaPlayerProject
                 {
                     CurPlaylist = RecentOpened;
                     CurSong = RecentOpened.ListSong[CurSongIndex];
+                    UpdateNextList(true, false, false, IsShuffle, IsRepeat);
                     OpenSong(CurSong.AbsolutePath);
                 }
             }
@@ -303,18 +387,9 @@ namespace MediaPlayerProject
         {
             if (CurSongIndex != -1)
             {
-                if (CurSongIndex > 0)
-                {
-                    CurSongIndex -= 1;
-                    CurSong = CurPlaylist.ListSong[CurSongIndex];
-                    OpenSong(CurSong.AbsolutePath);
-                }
-                else
-                {
-                    CurSongIndex = CurPlaylist.ListSong.Count - 1;
-                    CurSong = CurPlaylist.ListSong[CurSongIndex];
-                    OpenSong(CurSong.AbsolutePath);
-                }
+                UpdateNextList(false, false, true, IsShuffle, IsRepeat);
+                ResetBtn();
+                OpenSong(CurSong.AbsolutePath);
             }
         }
 
@@ -322,18 +397,8 @@ namespace MediaPlayerProject
         {
             if (CurSongIndex != -1)
             {
-                if (CurSongIndex < CurPlaylist.ListSong.Count - 1)
-                {
-                    CurSongIndex += 1;
-                    CurSong = CurPlaylist.ListSong[CurSongIndex];
-                    OpenSong(CurSong.AbsolutePath);
-                }
-                else
-                {
-                    CurSongIndex = 0;
-                    CurSong = CurPlaylist.ListSong[CurSongIndex];
-                    OpenSong(CurSong.AbsolutePath);
-                }
+                UpdateNextList(false, true, false, IsShuffle, IsRepeat);
+                OpenSong(CurSong.AbsolutePath);
             }
         }
 
@@ -362,6 +427,34 @@ namespace MediaPlayerProject
                 Timer.Stop();
                 PlayBtn.Visibility = Visibility.Visible;
                 PauseBtn.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void Shuffle_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsShuffle)
+            {
+                ShuffleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.ShuffleDisabled;
+                IsShuffle= false;
+            }
+            else
+            {
+                ShuffleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.Shuffle;
+                IsShuffle = true;
+            }
+        }
+
+        private void Repeat_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsRepeat)
+            {
+                RepeatIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.RepeatOff;
+                IsRepeat = false;
+            }
+            else
+            {
+                RepeatIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.Repeat;
+                IsRepeat = true;
             }
         }
     }   
