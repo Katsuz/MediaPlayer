@@ -25,7 +25,7 @@ namespace MediaPlayerProject.View
         {
             InitializeComponent();
             mainWindow = mainWD;
-            DataContext = mainWindow.CurSong;
+            DataContext = mainWD;
         }
     }
 }
