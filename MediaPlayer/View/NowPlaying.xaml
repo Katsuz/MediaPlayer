@@ -15,31 +15,31 @@
     </UserControl.Resources>
     <StackPanel Background="White">
         <TextBlock Text="Now Playing: " Style="{StaticResource TitleDisplay}" Margin="50 100 0 0" />
-        <Grid Height="30" Margin="60 10 0 0"  x:Name="NowPlaying_row" DataContext="{Binding CurSong}">
+        <Grid Height="30" Margin="85 10 0 0"  x:Name="NowPlaying_row" DataContext="{Binding CurSong}" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="0" FontSize="15"/>
-                <TextBlock Text="{Binding Singer}" VerticalAlignment="Center" Grid.Column="1" FontSize="15"/>
-            <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter} }" VerticalAlignment="Center" Grid.Column="2" FontSize="15"/>
+                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="0" FontSize="15" FontFamily="Gotham"/>
+                <TextBlock Text="{Binding Singer}" VerticalAlignment="Center" Grid.Column="1" FontSize="15" FontFamily="Gotham"/>
+                <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter} }" VerticalAlignment="Center" Grid.Column="2" FontSize="15" FontFamily="Gotham" />
         </Grid>
 
 
         <TextBlock Text="Next: " Style="{StaticResource TitleDisplay}" Margin="50 10 0 0"/>
-        <ListView Margin="60 10 0 0" x:Name="NextListView" SelectionMode="Single">
+        <ListView Margin="20 10 0 0" x:Name="NextListView" SelectionMode="Single" BorderThickness="0">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Height="30" Margin="60 10 0 0" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="300"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="0" FontSize="15"/>
-                        <TextBlock Text="{Binding Singer}" VerticalAlignment="Center" Grid.Column="1" FontSize="15"/>
-                        <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter} }" VerticalAlignment="Center" Grid.Column="2" FontSize="15"/>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="0" FontSize="15" FontFamily="Gotham" />
+                        <TextBlock Text="{Binding Singer}" VerticalAlignment="Center" Grid.Column="1" FontSize="15" FontFamily="Gotham"/>
+                        <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter} }" VerticalAlignment="Center" Grid.Column="2" FontSize="15" FontFamily="Gotham"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
