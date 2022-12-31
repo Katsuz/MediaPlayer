@@ -56,25 +56,54 @@ namespace MediaPlayerProject.DataClass
                 else
                 {
                     TagLib.File songFile = TagLib.File.Create(file);
-                    String name = songFile.Tag.Title;
-                    String singer = songFile.Tag.Performers[0];
-                    String album = songFile.Tag.Album;
-                    TimeSpan duration = songFile.Properties.Duration;
+
+                    String name = "Unknown Song";
+                    if (songFile.Tag.Title != null)
+                    {
+                        name = songFile.Tag.Title;
+                    }
+
+                    String singer = "Unknown Singer";
+                    if (songFile.Tag.Performers.Length != 0)
+                    {
+                        singer = songFile.Tag.Performers[0];
+                    }    
+                    
+                    String album = "Unknown Album";
+                    if (songFile.Tag.Album != null)
+                    {
+                        album = songFile.Tag.Album;
+                    }
+
+                    TimeSpan duration = new TimeSpan();
+                    if (songFile.Properties.Duration != null)
+                    {
+                        duration = songFile.Properties.Duration;
+                    }
+
                     String absolutePath = file;
 
-                    TagLib.IPicture pic = songFile.Tag.Pictures[0];
-                    MemoryStream ms = new MemoryStream(pic.Data.Data);
-                    ms.Seek(0, SeekOrigin.Begin);
-                    
-                    // ImageSource for System.Windows.Controls.Image
+
                     BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                    bitmap.UriSource = null;
-                    bitmap.StreamSource = ms;
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.EndInit();
-                    bitmap.Freeze();
+                    if (songFile.Tag.Pictures.Length != 0)
+                    {
+                        TagLib.IPicture pic = songFile.Tag.Pictures[0];
+                        MemoryStream ms = new MemoryStream(pic.Data.Data);
+                        ms.Seek(0, SeekOrigin.Begin);
+
+                        // ImageSource for System.Windows.Controls.Image
+                        bitmap.BeginInit();
+                        bitmap.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                        bitmap.UriSource = null;
+                        bitmap.StreamSource = ms;
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.EndInit();
+                        bitmap.Freeze();
+                    }
+                    else
+                    {
+                        bitmap = new BitmapImage(new Uri("/Images/default_thumbnail.png", UriKind.Relative));
+                    }
 
                     if (this.NumberOfSong == 0)
                     {
