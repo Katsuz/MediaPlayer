@@ -280,7 +280,10 @@ namespace MediaPlayerProject
             if (openFileScreen.ShowDialog() == true)
             {
                 int oldIndex = CurSongIndex;
-                CurSongIndex = RecentOpened.ListSong.Count;
+                if (CurSongIndex == -1)
+                {
+                    CurSongIndex= 0;
+                }    
                 RecentOpened.addSongsToPlaylist(openFileScreen.FileNames);
                 if (CurSongIndex == RecentOpened.ListSong.Count)
                 {
@@ -296,9 +299,16 @@ namespace MediaPlayerProject
                 else
                 {
                     CurPlaylist = RecentOpened;
-                    CurSong = RecentOpened.ListSong[CurSongIndex];
+                    if (CurSong.AbsolutePath == null) 
+                    { 
+                        CurSong = RecentOpened.ListSong[CurSongIndex];
+                        OpenSong(CurSong.AbsolutePath);
+                        PauseBtn.Visibility = Visibility.Collapsed;
+                        PlayBtn.Visibility = Visibility.Visible;
+                        Player.Pause();
+                        Timer.Stop();
+                    }
                     UpdateNextList(true, false, false, IsShuffle, IsRepeat);
-                    OpenSong(CurSong.AbsolutePath);
                 }
             }
             ChangeView(new Home(this));

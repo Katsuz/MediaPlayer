@@ -121,7 +121,7 @@ namespace MediaPlayerProject.View
             if (openFileScreen.ShowDialog() == true)
             {
                 int oldIndex = mainWindow.CurSongIndex;
-                mainWindow.CurSongIndex = playlist.ListSong.Count;
+                if (mainWindow.CurSongIndex == -1){ mainWindow.CurSongIndex = playlist.ListSong.Count; }
                 playlist.addSongsToPlaylist(openFileScreen.FileNames);
                 if (mainWindow.CurSongIndex == playlist.ListSong.Count)
                 {
@@ -136,8 +136,16 @@ namespace MediaPlayerProject.View
                 }
                 else
                 {
-                    //mainWindow.CurSong = playlist.ListSong[mainWindow.CurSongIndex];
-                    //mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
+                    if (mainWindow.CurSong.AbsolutePath == null)
+                    {
+                        mainWindow.CurSong = playlist.ListSong[mainWindow.CurSongIndex];
+                        mainWindow.UpdateNextList(true, false, false, mainWindow.IsShuffle,mainWindow.IsRepeat);
+                        mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
+                        mainWindow.PauseBtn.Visibility = Visibility.Collapsed;
+                        mainWindow.PlayBtn.Visibility = Visibility.Visible;
+                        mainWindow.Player.Pause();
+                        mainWindow.Timer.Stop();
+                    }    
                 }
             }
         }
