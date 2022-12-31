@@ -77,7 +77,20 @@ namespace MediaPlayerProject.View
                 if (mainWindow.CurSong == selectedSong)
                 {
                     playlist.RemoveSong(selectedSong);
-                    mainWindow.CurSong = mainWindow.CurPlaylist.ListSong.First();
+                    if (mainWindow.CurPlaylist.ListSong.Count != 0)
+                    {
+                        mainWindow.CurSong = mainWindow.CurPlaylist.ListSong.First();
+                    }
+                    else if (mainWindow.RecentOpened.ListSong.Count != 0)
+                    {
+                        mainWindow.CurSong = mainWindow.RecentOpened.ListSong.First();
+                        mainWindow.CurPlaylist = mainWindow.RecentOpened;
+                    }    
+                    else
+                    {
+                        mainWindow.CurSong = new DataClass.Song("Open a Song to play");
+                        mainWindow.CurPlaylist = mainWindow.RecentOpened;
+                    }    
                     mainWindow.OpenSong(mainWindow.CurSong.AbsolutePath);
                     mainWindow.PauseBtn.Visibility = Visibility.Collapsed;
                     mainWindow.PlayBtn.Visibility = Visibility.Visible;

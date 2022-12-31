@@ -93,7 +93,8 @@ namespace MediaPlayerProject
         {
             ChangeView(new Home(this));
             HighlightBtn(HomeBtn);
-            PlayBtn.Visibility= Visibility.Collapsed;
+            PauseBtn.Visibility= Visibility.Collapsed;
+            PlayBtn.Visibility= Visibility.Visible;
             Player.MediaOpened += Player_MediaOpened;
         }
 
@@ -138,6 +139,7 @@ namespace MediaPlayerProject
 
         public void OpenSong(string absolutePath)
         {
+            if (absolutePath == null) { return; }
             Player.Open(new Uri(absolutePath, UriKind.Absolute));
             Player.Play();
             Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 1, 0) };
@@ -185,6 +187,7 @@ namespace MediaPlayerProject
 
         private void PauseBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (CurSong.AbsolutePath == null) { return; }
             PauseBtn.Visibility = Visibility.Collapsed;
             PlayBtn.Visibility = Visibility.Visible;
             Player.Pause();
@@ -193,6 +196,7 @@ namespace MediaPlayerProject
 
         private void PlayBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (CurSong.AbsolutePath == null) { return; }
             PlayBtn.Visibility = Visibility.Collapsed;
             PauseBtn.Visibility = Visibility.Visible;
             Player.Play();
