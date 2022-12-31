@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MediaPlayerProject.View"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="830">
     <Grid Background="White">
@@ -15,15 +16,21 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Playing" Style="{StaticResource TitleDisplay}" Grid.Row="0"/>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="{Binding Thumnail}" Width="250" Height="250"></Image>
         </StackPanel>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center">
-            <TextBlock Text="{Binding Name}"></TextBlock>
+        <StackPanel Grid.Row="2" >
+            <Grid Height="56" >
+                <Icon:PackIconMaterial Kind="Music" VerticalAlignment="Center" FontSize="30" Margin="150 0 0 0"/>
+                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="190 0 0 0" FontSize="20" FontFamily="Gotham" FontWeight="Bold"></TextBlock>
+            </Grid>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" HorizontalAlignment="Center">
-            <TextBlock Text="{Binding Singer}"></TextBlock>
+        <StackPanel Grid.Row="3">
+            <Grid>
+                <Icon:PackIconMaterial Kind="MicrophoneVariant" FontSize="30" Margin="150 0 0 0"/>
+                <TextBlock Text="{Binding Singer}" Margin="190 0 0 0" FontSize="20" FontFamily="Gotham" FontWeight="Bold" ></TextBlock>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>
