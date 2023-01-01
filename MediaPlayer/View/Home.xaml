@@ -15,22 +15,32 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Playing" Style="{StaticResource TitleDisplay}" Grid.Row="0"/>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="{Binding Thumnail}" Width="250" Height="250"></Image>
+        <TextBlock Text="Playing" Style="{StaticResource TitleDisplay}" Grid.Row="0" Visibility="{Binding IsMp3}"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsMp3}">
+            <Image Source="{Binding Thumnail}" Width="300" Height="300"></Image>
         </StackPanel>
-        <StackPanel Grid.Row="2" >
+        <StackPanel Grid.Row="2" Visibility="{Binding IsMp3}">
             <Grid Height="56" >
                 <Icon:PackIconMaterial Kind="Music" VerticalAlignment="Center" FontSize="30" Margin="150 0 0 0"/>
-                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="190 0 0 0" FontSize="20" FontFamily="Gotham" FontWeight="Bold"></TextBlock>
+                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="190 0 0 0" 
+                           FontSize="20" FontFamily="Gotham" FontWeight="Bold"></TextBlock>
             </Grid>
         </StackPanel>
 
-        <StackPanel Grid.Row="3">
+        <StackPanel Grid.Row="3" Visibility="{Binding IsMp3}">
             <Grid>
                 <Icon:PackIconMaterial Kind="MicrophoneVariant" FontSize="30" Margin="150 0 0 0"/>
                 <TextBlock Text="{Binding Singer}" Margin="190 0 0 0" FontSize="20" FontFamily="Gotham" FontWeight="Bold" ></TextBlock>
             </Grid>
         </StackPanel>
+        <Border Grid.Row="0" Background="Cyan" Height="30" Width="800">
+            <TextBlock  Text="{Binding Name}" HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" FontSize="20" FontFamily="Gotham" FontWeight="Bold"
+                   ></TextBlock>
+        </Border>
+        <Grid Background="White"  Visibility="{Binding IsMp4}" x:Name="VideoPlace"
+            Width="800" Height="500" Grid.RowSpan="4">
+        
+        </Grid>
     </Grid>
 </UserControl>

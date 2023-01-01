@@ -21,11 +21,18 @@ namespace MediaPlayerProject.View
     public partial class Home : UserControl
     {
         private MainWindow mainWindow;
+        private VideoDrawing videoDrawing = new VideoDrawing();
+        private DrawingBrush brush;
+
         public Home(MainWindow mainWD)
         {
             InitializeComponent();
             mainWindow = mainWD;
             DataContext = mainWD;
+            videoDrawing.Rect = new Rect(0, 0, 420, 280);
+            videoDrawing.Player = mainWindow.Player;
+            brush= new DrawingBrush(videoDrawing);
+            VideoPlace.Background = brush;
         }
     }
 }

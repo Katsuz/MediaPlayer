@@ -27,7 +27,7 @@
             </Grid.ColumnDefinitions >
 
             <StackPanel Grid.Column="0" Margin="30 10 0 0">
-                <Image Source="{Binding CoverImage}" Width="150" Height="150"></Image>
+                <Image Source="{Binding CoverImage}" Width="120" Height="120"></Image>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Vertical">
                 <TextBlock Text="{Binding Name}" FontSize="28" FontWeight="Bold" Margin="15 50 0 15" Foreground="#444444"/>

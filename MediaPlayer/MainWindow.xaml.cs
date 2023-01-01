@@ -88,6 +88,8 @@ namespace MediaPlayerProject
             playlistBox.ItemsSource = TestPlaylist;
             CurSongIndex = -1;
             CurSong = new Song("Choose a Song");
+            CurSong.IsMp3 = "Visible";
+            CurSong.IsMp4 = "Collapsed";
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -164,6 +166,7 @@ namespace MediaPlayerProject
         {
             if (absolutePath == null) { return; }
             if (CurSong.AbsolutePath != null) { AddToRecentPlayed(CurSong); }
+            Console.WriteLine(CurSong.AbsolutePath);
             Player.Open(new Uri(absolutePath, UriKind.Absolute));
             Player.Play();
             Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 1, 0) };
@@ -291,10 +294,7 @@ namespace MediaPlayerProject
             if (openFileScreen.ShowDialog() == true)
             {
                 int oldIndex = CurSongIndex;
-                if (CurSongIndex == -1)
-                {
-                    CurSongIndex= 0;
-                }    
+                CurSongIndex = RecentOpened.ListSong.Count;
                 RecentOpened.addSongsToPlaylist(openFileScreen.FileNames);
                 if (CurSongIndex == RecentOpened.ListSong.Count)
                 {
@@ -310,15 +310,12 @@ namespace MediaPlayerProject
                 else
                 {
                     CurPlaylist = RecentOpened;
-                    if (CurSong.AbsolutePath == null) 
-                    { 
-                        CurSong = RecentOpened.ListSong[CurSongIndex];
-                        OpenSong(CurSong.AbsolutePath);
-                        PauseBtn.Visibility = Visibility.Collapsed;
-                        PlayBtn.Visibility = Visibility.Visible;
-                        Player.Pause();
-                        Timer.Stop();
-                    }
+                    CurSong = RecentOpened.ListSong[CurSongIndex];
+                    OpenSong(CurSong.AbsolutePath);
+                    PauseBtn.Visibility = Visibility.Collapsed;
+                    PlayBtn.Visibility = Visibility.Visible;
+                    Player.Pause();
+                    Timer.Stop();
                     UpdateNextList(true, false, false, IsShuffle, IsRepeat);
                 }
             }

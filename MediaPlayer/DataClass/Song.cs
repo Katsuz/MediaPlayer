@@ -19,6 +19,9 @@ namespace MediaPlayerProject.DataClass
         public string AbsolutePath {get; set; }
         public BitmapImage Thumnail { get; set; }
 
+        public string IsMp3 { get; set; }
+        public string IsMp4 { get; set; }
+
         public Song(int iD, string name, string singer, string album, TimeSpan duration, string absolutePath, BitmapImage thumnail)
         {
             ID = iD;
@@ -28,6 +31,16 @@ namespace MediaPlayerProject.DataClass
             DateAdded = new DateTime();
             Duration = duration;
             AbsolutePath = absolutePath;
+            if (absolutePath.EndsWith(".mp3"))
+            {
+                IsMp3 = "Visible";
+                IsMp4 = "Collapsed";
+            } 
+            else if (absolutePath.EndsWith(".mp4"))
+            {
+                IsMp4 = "Visible";
+                IsMp3 = "Collapsed";
+            }
             this.Thumnail = thumnail;
         }
 
