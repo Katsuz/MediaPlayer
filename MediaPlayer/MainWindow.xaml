@@ -87,14 +87,14 @@
                             </Button>
 
                         </StackPanel>
-                        <ListBox x:Name="playlistBox" Margin="40,0,0,0"  SelectionMode="Single" SelectionChanged="PlaylistBox_SelectionChanged" 
+                        <ListView x:Name="playlistBox" Margin="40,0,0,0"  SelectionMode="Single" SelectionChanged="PlaylistBox_SelectionChanged" 
                                  IsSynchronizedWithCurrentItem="True" Style="{StaticResource ListBoxPlaylist}">
-                            <ListBox.ItemTemplate>
+                            <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Visibility="{Binding Visibility}" Text="{Binding Name}"/>
+                                    <TextBlock Visibility="{Binding Visibility}" Text="{Binding Name}" />
                                 </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </StackPanel>
 
                 </StackPanel>

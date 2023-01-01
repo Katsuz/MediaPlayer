@@ -89,14 +89,16 @@ namespace MediaPlayerProject
                 ListOfPlaylists = JsonConvert.DeserializeObject<ObservableCollection<DataClass.Playlist>>(listOfPlaylistJson);
                 RecentOpened = ListOfPlaylists[0];
                 RecentPlayed_P = ListOfPlaylists[1];
+                //ListOfPlaylists.RemoveAt(0);
+                //ListOfPlaylists.RemoveAt(0);
                 playlistBox.ItemsSource = listOfPlaylists;
             }
             catch
             {
                 RecentOpened = new MediaPlayerProject.DataClass.Playlist("Recent Opened Songs");
-                RecentOpened.Visibility = "Collapsed";
+                RecentOpened.Visibility = "Hidden";
                 RecentPlayed_P = new MediaPlayerProject.DataClass.Playlist("Recent Played Songs");
-                RecentPlayed_P.Visibility = "Collapsed";
+                RecentPlayed_P.Visibility = "Hidden";
                 ListOfPlaylists.Add(RecentOpened);
                 ListOfPlaylists.Add(RecentPlayed_P);
                 playlistBox.ItemsSource = ListOfPlaylists;
@@ -164,6 +166,9 @@ namespace MediaPlayerProject
             Player.MediaEnded += Player_MediaEnded;
             ReadData();
             ReadSettings();
+            ListOfPlaylists.RemoveAt(0);
+            ListOfPlaylists.RemoveAt(0);
+
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -592,6 +597,8 @@ namespace MediaPlayerProject
         {
             string folder = AppDomain.CurrentDomain.BaseDirectory;
             string absolutePath = $"{folder}{"/Database/listOfPlaylists.json"}";
+            listOfPlaylists.Insert(0, RecentOpened);
+            listOfPlaylists.Insert(0, RecentPlayed_P);
             string listOfPlaylistJson = JsonConvert.SerializeObject(listOfPlaylists, Formatting.Indented);
             File.WriteAllText(absolutePath, listOfPlaylistJson);
 
