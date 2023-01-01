@@ -23,24 +23,24 @@
         <StackPanel Grid.Row="0">
             <TextBlock Text="Recent Played" Style="{StaticResource menuTitle2}" Margin="50 30 0 0"/>
         </StackPanel>
-        <UniformGrid Grid.Row ="1"  Columns="7" Grid.ColumnSpan="3" Margin="5 0 0 0" VerticalAlignment="Center">
-            <TextBlock Text="Name" FontWeight="Bold" FontSize="15" Margin="15,0,15,0"></TextBlock>
-            <TextBlock Text="Album" FontWeight="Bold" FontSize="15" Margin="0,0,16,0"></TextBlock>
-            <TextBlock Text="DateAdded" FontWeight="Bold" FontSize="15" Margin="-11,0,17,0" ></TextBlock>
-            <TextBlock Text="Duration" FontWeight="Bold" FontSize="15" Margin="-12,0,0,0"></TextBlock>
-            <TextBlock Text="Phát" FontWeight="Bold" FontSize="15" Margin="16,0,30,0"></TextBlock>
+        <UniformGrid Grid.Row ="1"  Columns="5" Grid.ColumnSpan="3" Margin="5 0 0 0" VerticalAlignment="Center">
+            <TextBlock Text="Name" FontWeight="Bold" FontSize="15" Margin="30,0,14,0" ></TextBlock>
+            <TextBlock Text="Album" FontWeight="Bold" FontSize="15" Margin="80,0,14,0" ></TextBlock>
+            <TextBlock Text="DateAdded" FontWeight="Bold" FontSize="15" Margin="45,0,0,0"  ></TextBlock>
+            <TextBlock Text="Duration" FontWeight="Bold" FontSize="15" Margin="20,0,22,0" ></TextBlock>
+            <TextBlock Text="Phát" FontWeight="Bold" FontSize="15" Margin="30,0,0,0" ></TextBlock>
         </UniformGrid>
         <ListView DataContext="{Binding RecentPlayed_P}" ItemsSource="{Binding ListSong}" Grid.Row="2" BorderThickness="0">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <UniformGrid Columns="7" Width="810">
-                        <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
-                            <Image Source="{Binding Thumnail}" Width="50" Height="50"></Image>
-                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" Margin="10 0"></TextBlock>
-                        </StackPanel>
-                        <TextBlock Text="{Binding Album}" TextWrapping="WrapWithOverflow"></TextBlock>
-                        <TextBlock Text="{Binding DateAdded, Converter={StaticResource datetimeConverter}}"></TextBlock>
-                        <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter}}"></TextBlock>
+                    <UniformGrid Columns="5" Width="810">
+                        <Grid Margin="0 0 -100 0" >
+                            <Image Source="{Binding Thumnail}" Width="50" Height="50" HorizontalAlignment="Left"></Image>
+                            <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" Height="50" Margin="70 0"></TextBlock>
+                        </Grid>
+                        <TextBlock Text="{Binding Album}" TextWrapping="WrapWithOverflow" Margin="80 0 0 0"></TextBlock>
+                        <TextBlock Text="{Binding DateAdded, Converter={StaticResource datetimeConverter}}" Margin="50 0 0 0"></TextBlock>
+                        <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter}}" Margin="30 0 0 0"></TextBlock>
                         <Button Tag ="{Binding ID}" Width="80" Height="55" Click="Play_Click">
                             <Icon:PackIconMaterial Kind="Play"/>
                         </Button>

@@ -21,16 +21,24 @@
                 <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <!--Function Exit-->
             <Border Grid.Row="0" Grid.ColumnSpan="2" >
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button Click="Exit_Click" Style="{StaticResource ExitButton }">
                         <Icon:PackIconMaterial Kind="Close"/>
                     </Button>
-                </StackPanel> 
+                </StackPanel>
             </Border>
-            
+
+            <!--Function minisize-->
+            <Border Grid.Row="0" Grid.ColumnSpan="2" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="991,0,0,0" Width="59">
+                    <Button Click="Minisize_Click" Style="{StaticResource ExitButton }">
+                        <Icon:PackIconMaterial Kind="WindowMinimize"/>
+                    </Button>
+                </StackPanel>
+            </Border>
             <!--Menu-->
             <Border Background="White" CornerRadius="20 0 0 40" Grid.Column="0" Grid.Row="1">
                 <StackPanel>
@@ -49,13 +57,13 @@
                             </Grid>
                         </Button>
                         <Button Style="{StaticResource menuButton}"  x:Name="OpenFileBtn" Click="OpenFile_Clicked">
-                                <Grid>
-                                    <TextBlock Text="Open files" Margin="0 0 0 2"/>
-                                    <Icon:PackIconMaterial Kind="File" Margin="125,0,0,0" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Button>
+                            <Grid>
+                                <TextBlock Text="Open files" Margin="0 0 0 2"/>
+                                <Icon:PackIconMaterial Kind="File" Margin="125,0,0,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
 
-                            <Button Style="{StaticResource menuButton}" x:Name="RecentPlayedBtn" Click="BtnRecentPlayed_Click">
+                        <Button Style="{StaticResource menuButton}" x:Name="RecentPlayedBtn" Click="BtnRecentPlayed_Click">
                             <Grid>
                                 <TextBlock Text="Recent Played" Margin="0 0 0 2"/>
                                 <Icon:PackIconMaterial Kind="Clock" Margin="125,0,0,0" VerticalAlignment="Center"/>
@@ -77,7 +85,7 @@
                                 <Icon:PackIconMaterial  Kind="PlaylistPlus" VerticalAlignment="Center" 
                                 FontWeight="Bold" FontSize="22" />
                             </Button>
-                            
+
                         </StackPanel>
                         <ListBox x:Name="playlistBox" Margin="40,0,0,0"  SelectionMode="Single" SelectionChanged="PlaylistBox_SelectionChanged" 
                                  IsSynchronizedWithCurrentItem="True" Style="{StaticResource ListBoxPlaylist}">
@@ -88,10 +96,10 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel>
-                    
+
                 </StackPanel>
             </Border>
-            
+
             <!--Player-->
             <Border CornerRadius="15" Grid.Row="2" Grid.ColumnSpan="2" Background="#03bf69" >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -105,8 +113,8 @@
                     <Button Style="{StaticResource playerButton}" x:Name="PlayBtn" Click="PlayBtn_Click">
                         <Icon:PackIconMaterial Kind="Play" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
-                    
-                    
+
+
                     <Button Style="{StaticResource playerButton}" Click="Next_Click">
                         <Icon:PackIconMaterial Kind="SkipNext" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
@@ -125,7 +133,7 @@
                     <Button Style="{StaticResource playerButton}" Click="Repeat_Click">
                         <Icon:PackIconMaterial x:Name="RepeatIcon" Kind="RepeatOff" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
-                    
+
                     <!--Volume-->
                     <Button Style="{StaticResource playerButton}" x:Name="volumeBtn" Click="VolumeBtn_Click" Tag="VolumeHigh">
                         <Icon:PackIconMaterial Kind="{Binding ElementName=volumeBtn, Path=Tag}" Style="{StaticResource playerButtonIcon}"/>
@@ -134,11 +142,11 @@
                             Value="10" Width="120" SelectionEnd="{Binding ElementName=sliderVolume, Path=Value}" ValueChanged="SliderVolume_ValueChanged"/>
                 </StackPanel>
             </Border>
-            
+
             <!--Main Display-->
             <Grid Grid.Row="1" Grid.Column="1" Background="Tan" x:Name="MainDisplay">
-                
+
             </Grid>
-        </Grid> 
+        </Grid>
     </Border>
 </Window>
