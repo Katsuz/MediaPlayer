@@ -21,6 +21,9 @@ using MediaPlayerProject.DataClass;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Controls.Primitives;
+using Newtonsoft.Json;
+using MediaPlayerProject.Converter;
+using Newtonsoft.Json.Linq;
 
 namespace MediaPlayerProject
 {
@@ -36,13 +39,13 @@ namespace MediaPlayerProject
         private System.Windows.Controls.Button curBtn;
         public MediaPlayer Player = new MediaPlayer();
         public DispatcherTimer Timer;
-        private ObservableCollection<DataClass.Playlist> testPlaylist = new ObservableCollection<DataClass.Playlist>();
+        private ObservableCollection<DataClass.Playlist> listOfPlaylists = new ObservableCollection<DataClass.Playlist>();
         public MediaPlayerProject.DataClass.Playlist CurPlaylist { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public int CurSongIndex { get; set; }
-        public ObservableCollection<DataClass.Playlist> TestPlaylist { get => testPlaylist; set => testPlaylist = value; }
+        public ObservableCollection<DataClass.Playlist> ListOfPlaylists { get => listOfPlaylists; set => listOfPlaylists = value; }
         public DataClass.Playlist RecentOpened { get; set; }
         public DataClass.Playlist RecentPlayed_P { get; set; }
         public DataClass.Song CurSong { get; set; }
@@ -82,10 +85,10 @@ namespace MediaPlayerProject
             curBtn = HomeBtn;
             RecentOpened = new MediaPlayerProject.DataClass.Playlist("Recent Opened Songs");
             RecentPlayed_P = new MediaPlayerProject.DataClass.Playlist("Recent Played Songs");
-            TestPlaylist.Add(RecentOpened);
-            TestPlaylist.Add(RecentPlayed_P);
+            ListOfPlaylists.Add(RecentOpened);
+            ListOfPlaylists.Add(RecentPlayed_P);
             CurPlaylist = RecentOpened;
-            playlistBox.ItemsSource = TestPlaylist;
+            playlistBox.ItemsSource = ListOfPlaylists;
             CurSongIndex = -1;
             CurSong = new Song("Choose a Song");
             CurSong.IsMp3 = "Visible";
@@ -414,7 +417,7 @@ namespace MediaPlayerProject
             if (addPlaylistWindow.ShowDialog() == true)
             {
                 var newPlaylist = (MediaPlayerProject.DataClass.Playlist)addPlaylistWindow.NewPlaylist.Clone();
-                TestPlaylist.Add(newPlaylist);
+                ListOfPlaylists.Add(newPlaylist);
             }
             else
             {
@@ -428,7 +431,7 @@ namespace MediaPlayerProject
             if ( i >= 0)
             {
                 //CurPlaylist = TestPlaylist[i];
-                ChangeView(new View.Playlist(TestPlaylist[i], this));
+                ChangeView(new View.Playlist(ListOfPlaylists[i], this));
                 ResetBtn();
             }
             playlistBox.SelectedIndex = -1;
@@ -516,6 +519,20 @@ namespace MediaPlayerProject
                 RepeatIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.Repeat;
                 IsRepeat = true;
             }
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            string folder = AppDomain.CurrentDomain.BaseDirectory;
+            string absolutePath = $"{folder}{"/Database/listOfPlaylists.json"}";
+            string listOfPlaylistJson = JsonConvert.SerializeObject(listOfPlaylists, Formatting.Indented);
+            File.WriteAllText(absolutePath, listOfPlaylistJson);
+
+            absolutePath = $"{folder}{"/Database/settings.json"}";
+            DataClass.Settings settingsJson = new Settings(Player.Position.Hours, Player.Position.Minutes, Player.Position.Seconds,
+                IsShuffle, IsRepeat, CurSongIndex, CurPlaylist.Name, CurSong.AbsolutePath);
+            string temp3 = JsonConvert.SerializeObject(settingsJson, Formatting.Indented);
+            File.WriteAllText(absolutePath, temp3);
         }
     }   
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,17 +14,33 @@ namespace MediaPlayerProject.DataClass
 {
     public class Playlist : INotifyPropertyChanged, ICloneable
     {
+        [JsonProperty("listSong")]
         public ObservableCollection<Song> ListSong { get; set; }
 
+        [JsonProperty("numberOfSong")]
         public int NumberOfSong { get; set; }
+
+        [JsonProperty("nextID")] 
         public int NextID { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         //public Song PlayingSong { get; private set; }
 
+        [JsonProperty("name")]
         public string Name {get; set;}
+
         public BitmapImage CoverImage { get; set; }
+
+        [JsonConstructor]
+        public Playlist(ObservableCollection<Song> listSong, int numberOfSong, int nextID, string name, string coverImage)
+        {
+            ListSong = listSong;
+            NumberOfSong = numberOfSong;
+            NextID = nextID;
+            Name = name;
+            CoverImage = listSong[0].Thumnail;
+        }
 
         public Playlist(string name)
         {

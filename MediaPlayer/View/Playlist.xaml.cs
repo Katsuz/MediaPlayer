@@ -154,7 +154,7 @@ namespace MediaPlayerProject.View
 
         private void DeletePlaylist_Click(object sender, RoutedEventArgs e)
         {
-            mainWindow.TestPlaylist.Remove(playlist);
+            mainWindow.ListOfPlaylists.Remove(playlist);
             mainWindow.ChangeView(new Home(mainWindow));
             mainWindow.ChangeCurBtnTo(mainWindow.HomeBtn);
         }
