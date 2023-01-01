@@ -31,20 +31,24 @@ namespace MediaPlayerProject.DataClass
         public string Name {get; set;}
 
         public BitmapImage CoverImage { get; set; }
+        public string Visibility { get; set; }
 
         [JsonConstructor]
-        public Playlist(ObservableCollection<Song> listSong, int numberOfSong, int nextID, string name, string coverImage)
+        public Playlist(ObservableCollection<Song> listSong, int numberOfSong, int nextID, string name, string coverImage, string visibility)
         {
             ListSong = listSong;
             NumberOfSong = numberOfSong;
             NextID = nextID;
             Name = name;
-            CoverImage = listSong[0].Thumnail;
+            if (ListSong.Count != 0) { CoverImage = listSong[0].Thumnail; }
+            else { CoverImage = new BitmapImage(new Uri("/Images/default_thumbnail.png", UriKind.Relative)); }
+            Visibility = visibility;
         }
 
         public Playlist(string name)
         {
             this.ListSong = new ObservableCollection<Song>();
+            this.Visibility = "Visible";
             this.Name = name;
             this.NumberOfSong = 0;
             this.NextID = 0;

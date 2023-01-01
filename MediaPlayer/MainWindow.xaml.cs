@@ -79,20 +79,91 @@ namespace MediaPlayerProject
             HighlightBtn(btnName);
         }
 
+        private void ReadData()
+        {
+            string folder = AppDomain.CurrentDomain.BaseDirectory;
+            string absolutePath = $"{folder}{"/Database/listOfPlaylists.json"}";
+            try 
+            {
+                string listOfPlaylistJson = File.ReadAllText(absolutePath);
+                ListOfPlaylists = JsonConvert.DeserializeObject<ObservableCollection<DataClass.Playlist>>(listOfPlaylistJson);
+                RecentOpened = ListOfPlaylists[0];
+                RecentPlayed_P = ListOfPlaylists[1];
+                playlistBox.ItemsSource = listOfPlaylists;
+            }
+            catch
+            {
+                RecentOpened = new MediaPlayerProject.DataClass.Playlist("Recent Opened Songs");
+                RecentOpened.Visibility = "Collapsed";
+                RecentPlayed_P = new MediaPlayerProject.DataClass.Playlist("Recent Played Songs");
+                RecentPlayed_P.Visibility = "Collapsed";
+                ListOfPlaylists.Add(RecentOpened);
+                ListOfPlaylists.Add(RecentPlayed_P);
+                playlistBox.ItemsSource = ListOfPlaylists;
+            }
+        }
+
+        private void ReadSettings()
+        {
+            string folder = AppDomain.CurrentDomain.BaseDirectory;
+            string absolutePath = $"{folder}{"/Database/settings.json"}";
+            try
+            {
+                string settingstJson = File.ReadAllText(absolutePath);
+                DataClass.Settings settings = JsonConvert.DeserializeObject<DataClass.Settings>(settingstJson);
+
+                foreach (DataClass.Playlist playlist in ListOfPlaylists)
+                {
+                    if (playlist.Name == settings.CurPlaylistName)
+                    {
+                        CurPlaylist= playlist;
+                    }
+                }
+
+                CurSongIndex = settings.CurSongIndex;
+
+                foreach (DataClass.Song song in CurPlaylist.ListSong)
+                {
+                    if (song.AbsolutePath == settings.CurSongAbsolutePath)
+                    {
+                        CurSong = song;
+                    }
+                }
+
+                OpenSong(CurSong.AbsolutePath);
+                MakeNextList(IsShuffle, false);
+                TimeSpan newPosition = TimeSpan.FromSeconds(settings.P_Hours*3600 + settings.P_Minutes*60 + settings.P_Seconds);
+                Player.Position = newPosition;
+                slider.Value = settings.P_Hours * 3600 + settings.P_Minutes * 60 + settings.P_Seconds;
+                currentPosition.Text = $"{settings.P_Hours}:{settings.P_Minutes}:{settings.P_Seconds}";
+                PauseBtn.Visibility = Visibility.Collapsed;
+                PlayBtn.Visibility = Visibility.Visible;
+                Player.Pause();
+                Timer.Stop();
+
+                IsShuffle = settings.IsShuffle;
+                IsRepeat = settings.IsRepeat;
+            }
+            catch
+            {
+                CurPlaylist = RecentOpened;
+                CurSongIndex = -1;
+                CurSong = new Song("Choose a Song");
+                CurSong.IsMp3 = "Visible";
+                CurSong.IsMp4 = "Collapsed";
+                IsRepeat = false;
+                IsShuffle = false;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             curBtn = HomeBtn;
-            RecentOpened = new MediaPlayerProject.DataClass.Playlist("Recent Opened Songs");
-            RecentPlayed_P = new MediaPlayerProject.DataClass.Playlist("Recent Played Songs");
-            ListOfPlaylists.Add(RecentOpened);
-            ListOfPlaylists.Add(RecentPlayed_P);
-            CurPlaylist = RecentOpened;
-            playlistBox.ItemsSource = ListOfPlaylists;
-            CurSongIndex = -1;
-            CurSong = new Song("Choose a Song");
-            CurSong.IsMp3 = "Visible";
-            CurSong.IsMp4 = "Collapsed";
+            Player.MediaOpened += Player_MediaOpened;
+            Player.MediaEnded += Player_MediaEnded;
+            ReadData();
+            ReadSettings();
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -114,10 +185,6 @@ namespace MediaPlayerProject
             HighlightBtn(HomeBtn);
             PauseBtn.Visibility= Visibility.Collapsed;
             PlayBtn.Visibility= Visibility.Visible;
-            Player.MediaOpened += Player_MediaOpened;
-            Player.MediaEnded += Player_MediaEnded;
-            IsRepeat = false;
-            IsShuffle= false;
         }
 
         private void Player_MediaOpened(object sender, EventArgs e)
@@ -169,7 +236,6 @@ namespace MediaPlayerProject
         {
             if (absolutePath == null) { return; }
             if (CurSong.AbsolutePath != null) { AddToRecentPlayed(CurSong); }
-            Console.WriteLine(CurSong.AbsolutePath);
             Player.Open(new Uri(absolutePath, UriKind.Absolute));
             Player.Play();
             Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 1, 0) };
@@ -211,6 +277,7 @@ namespace MediaPlayerProject
         public void MakeNextList(bool shuffle, bool repeatTime)
         {
             NextList = new ObservableCollection<Song>();
+            PreviousList = new ObservableCollection<Song>();
             foreach (Song song in CurPlaylist.ListSong)
             {
                 NextList.Add(song);
@@ -231,7 +298,7 @@ namespace MediaPlayerProject
             }
             if (shuffle) { ShuffleNextList(); }
 
-            PreviousList = new ObservableCollection<Song>();
+            
         }
 
         public void UpdateNextList(bool needNewOne,bool next, bool previous, bool shuffle, bool repeat)

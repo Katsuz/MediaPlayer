@@ -91,7 +91,7 @@
                                  IsSynchronizedWithCurrentItem="True" Style="{StaticResource ListBoxPlaylist}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Visibility="{Binding Visibility}" Text="{Binding Name}"/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
