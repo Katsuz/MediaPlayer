@@ -534,5 +534,17 @@ namespace MediaPlayerProject
             string temp3 = JsonConvert.SerializeObject(settingsJson, Formatting.Indented);
             File.WriteAllText(absolutePath, temp3);
         }
+
+        private void Minisize_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.WindowState == WindowState.Normal)
+            {
+                this.WindowState= WindowState.Minimized;
+            }
+            else if(this.WindowState == WindowState.Minimized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+        }
     }   
 }
