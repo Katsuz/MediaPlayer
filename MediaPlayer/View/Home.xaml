@@ -33,7 +33,7 @@
                 <TextBlock Text="{Binding Singer}" Margin="190 0 0 0" FontSize="20" FontFamily="Gotham" FontWeight="Bold" ></TextBlock>
             </Grid>
         </StackPanel>
-        <Border Grid.Row="0" Background="Cyan" Height="30" Width="800">
+        <Border Grid.Row="0" Background="Cyan" Height="30" Width="800" Visibility="{Binding IsMp4}">
             <TextBlock  Text="{Binding Name}" HorizontalAlignment="Center" 
                    VerticalAlignment="Center" FontSize="20" FontFamily="Gotham" FontWeight="Bold"
                    ></TextBlock>
