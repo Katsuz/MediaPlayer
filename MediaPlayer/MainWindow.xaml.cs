@@ -37,13 +37,14 @@ namespace MediaPlayerProject
         public MediaPlayer Player = new MediaPlayer();
         public DispatcherTimer Timer;
         private ObservableCollection<DataClass.Playlist> testPlaylist = new ObservableCollection<DataClass.Playlist>();
-        public MediaPlayerProject.DataClass.Playlist CurPlaylist;
+        public MediaPlayerProject.DataClass.Playlist CurPlaylist { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public int CurSongIndex { get; set; }
         public ObservableCollection<DataClass.Playlist> TestPlaylist { get => testPlaylist; set => testPlaylist = value; }
         public DataClass.Playlist RecentOpened { get; set; }
+        public DataClass.Playlist RecentPlayed_P { get; set; }
         public DataClass.Song CurSong { get; set; }
 
         public ObservableCollection<Song> NextList { get; set; }
@@ -80,7 +81,9 @@ namespace MediaPlayerProject
             InitializeComponent();
             curBtn = HomeBtn;
             RecentOpened = new MediaPlayerProject.DataClass.Playlist("Recent Opened Songs");
+            RecentPlayed_P = new MediaPlayerProject.DataClass.Playlist("Recent Played Songs");
             TestPlaylist.Add(RecentOpened);
+            TestPlaylist.Add(RecentPlayed_P);
             CurPlaylist = RecentOpened;
             playlistBox.ItemsSource = TestPlaylist;
             CurSongIndex = -1;
@@ -107,6 +110,7 @@ namespace MediaPlayerProject
             PauseBtn.Visibility= Visibility.Collapsed;
             PlayBtn.Visibility= Visibility.Visible;
             Player.MediaOpened += Player_MediaOpened;
+            Player.MediaEnded += Player_MediaEnded;
             IsRepeat = false;
             IsShuffle= false;
         }
@@ -122,6 +126,12 @@ namespace MediaPlayerProject
             slider.Maximum = Player.NaturalDuration.TimeSpan.TotalSeconds;
         }
 
+        private void Player_MediaEnded(object sender, EventArgs e)
+        {
+            UpdateNextList(false, true, false, IsShuffle, IsRepeat);
+            OpenSong(CurSong.AbsolutePath);
+        }
+
         private void ButtonHome_Click(object sender, RoutedEventArgs e)
         {
             ChangeView(new Home(this));
@@ -130,7 +140,7 @@ namespace MediaPlayerProject
 
         private void BtnRecentPlayed_Click(object sender, RoutedEventArgs e)
         {
-            ChangeView(new RecentPlayed());
+            ChangeView(new RecentPlayed(this));
             ChangeCurBtnTo(RecentPlayedBtn);
         }
 
@@ -153,6 +163,7 @@ namespace MediaPlayerProject
         public void OpenSong(string absolutePath)
         {
             if (absolutePath == null) { return; }
+            if (CurSong.AbsolutePath != null) { AddToRecentPlayed(CurSong); }
             Player.Open(new Uri(absolutePath, UriKind.Absolute));
             Player.Play();
             Timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 1, 0) };
@@ -424,6 +435,15 @@ namespace MediaPlayerProject
                 ResetBtn();
             }
             playlistBox.SelectedIndex = -1;
+        }
+
+        public void AddToRecentPlayed(Song song)
+        { 
+            if (RecentPlayed_P.ListSong.Count== 0) { RecentPlayed_P.ListSong.Insert(0, song); }
+            else if (song.AbsolutePath != RecentPlayed_P.ListSong[0].AbsolutePath)
+            {
+                RecentPlayed_P.ListSong.Insert(0, song);
+            }
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)

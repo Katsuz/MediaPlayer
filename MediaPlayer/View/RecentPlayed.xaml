@@ -5,8 +5,15 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MediaPlayerProject.View"
+             xmlns:converter="clr-namespace:MediaPlayerProject.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="830" >
+    <UserControl.Resources>
+        <converter:RelativeToAbsolutePath x:Key="absoluteConverter"/>
+        <converter:DateTimeConverter x:Key="datetimeConverter"/>
+        <converter:DurationConverter x:Key="durationConverter"/>
+        <converter:BitmapImageToBitmapSourceConverter x:Key="imageSourceConverter"/>
+    </UserControl.Resources>
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -18,7 +25,7 @@
         </StackPanel>
         
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <StackPanel Width="200" Margin="50 0 0 0 ">
+            <!--<StackPanel Width="200" Margin="50 0 0 0 ">
                 <Image />
             </StackPanel>
             <StackPanel Orientation="Vertical" Width="500">
@@ -29,12 +36,33 @@
                         <TextBlock Text="Play" HorizontalAlignment="Center" />
                     </Grid>
                 </Button>
-            </StackPanel>
+            </StackPanel>-->
+            <UniformGrid Columns="7" Grid.Row="1" Grid.ColumnSpan="3" Margin="5 0 0 0" VerticalAlignment="Center">
+                <TextBlock Text="Name" FontWeight="Bold" FontSize="15" Margin="15,0,15,0"></TextBlock>
+                <TextBlock Text="Album" FontWeight="Bold" FontSize="15" Margin="0,0,16,0"></TextBlock>
+                <TextBlock Text="DateAdded" FontWeight="Bold" FontSize="15" Margin="-11,0,17,0" ></TextBlock>
+                <TextBlock Text="Duration" FontWeight="Bold" FontSize="15" Margin="-12,0,0,0"></TextBlock>
+                <TextBlock Text="Phát" FontWeight="Bold" FontSize="15" Margin="16,0,30,0"></TextBlock>
+            </UniformGrid>
         </StackPanel>
-        <ScrollViewer Grid.Row="2">
-            
-            <ListView>
-            
+        <ScrollViewer Grid.Row="2" DataContext="{Binding RecentPlayed_P}">
+            <ListView ItemsSource="{Binding ListSong}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <UniformGrid Columns="7" Width="810">
+                            <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
+                                <Image Source="{Binding Thumnail}" Width="50" Height="50"></Image>
+                                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" Margin="10 0"></TextBlock>
+                            </StackPanel>
+                            <TextBlock Text="{Binding Album}" TextWrapping="WrapWithOverflow"></TextBlock>
+                            <TextBlock Text="{Binding DateAdded, Converter={StaticResource datetimeConverter}}"></TextBlock>
+                            <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter}}"></TextBlock>
+                            <Button Tag ="{Binding ID}" Width="80" Height="55" Click="Play_Click">
+                                <Icon:PackIconMaterial Kind="Play"/>
+                            </Button>
+                        </UniformGrid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
     </Grid>

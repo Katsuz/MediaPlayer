@@ -57,7 +57,7 @@
 
                             <Button Style="{StaticResource menuButton}" x:Name="RecentPlayedBtn" Click="BtnRecentPlayed_Click">
                             <Grid>
-                                <TextBlock Text="Recent Opened" Margin="0 0 0 2"/>
+                                <TextBlock Text="Recent Played" Margin="0 0 0 2"/>
                                 <Icon:PackIconMaterial Kind="Clock" Margin="125,0,0,0" VerticalAlignment="Center"/>
                             </Grid>
                         </Button>
