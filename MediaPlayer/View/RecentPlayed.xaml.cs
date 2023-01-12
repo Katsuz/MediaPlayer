@@ -42,7 +42,6 @@ namespace MediaPlayerProject.View
                 }
             }
             mainWindow.CurSong = selectedSong;
-            mainWindow.RecentPlayed_P.ListSong.Clear();
             mainWindow.RecentPlayed_P.ListSong.Add(selectedSong);
             mainWindow.CurPlaylist = mainWindow.RecentPlayed_P;
             mainWindow.MakeNextList(mainWindow.IsShuffle, false);

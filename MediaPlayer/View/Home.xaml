@@ -39,7 +39,7 @@
                    ></TextBlock>
         </Border>
         <Grid Background="White"  Visibility="{Binding IsMp4}" x:Name="VideoPlace"
-            Width="800" Height="500" Grid.RowSpan="4">
+            Width="800" Height="490" Grid.RowSpan="4">
         
         </Grid>
     </Grid>

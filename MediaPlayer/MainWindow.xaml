@@ -5,10 +5,19 @@
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayerProject"
+        xmlns:converter ="clr-namespace:MediaPlayerProject.Converter"
         mc:Ignorable="d"
         Title="Media Player" Height="700" Width="1050" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" AllowsTransparency="True"  WindowStyle="None" Background="Transparent"
         Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <converter:RelativeToAbsolutePath x:Key="absoluteConverter"/>
+        <converter:DateTimeConverter x:Key="datetimeConverter"/>
+        <converter:DurationConverter x:Key="durationConverter"/>
+        <converter:BitmapImageToBitmapSourceConverter x:Key="imageSourceConverter"/>
+        <converter:TimeSpanToDouble x:Key="timeSpanToDouble"/>
+        <converter:TimeSpanToText x:Key="timeSpanToText"/>
+    </Window.Resources>
     <Border Background="White" CornerRadius="20" MouseDown="Border_MouseDown">
         <Grid>
             <Grid.RowDefinitions>
@@ -91,7 +100,7 @@
                                  IsSynchronizedWithCurrentItem="True" Style="{StaticResource ListBoxPlaylist}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Visibility="{Binding Visibility}" Text="{Binding Name}" />
+                                    <TextBlock Text="{Binding Name}" />
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
@@ -119,11 +128,17 @@
                         <Icon:PackIconMaterial Kind="SkipNext" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
 
+                    
                     <!--Slider-->
-                    <TextBlock x:Name="currentPosition" Text="0:0:0" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
+                    <TextBlock x:Name="currentPosition" Text="0:0:0" 
+                               VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
                     <Slider Style="{DynamicResource SliderStyle1}" x:Name="slider" IsSelectionRangeEnabled="True" VerticalAlignment="Center" 
-                            Value="0" Width="350" Thumb.DragCompleted="Slider_DragCompleted"
-                            Thumb.DragStarted="Slider_DragStarted"/>
+                            Value="0" 
+                            Width="350"  IsMoveToPointEnabled="True" AutoToolTipPlacement="TopLeft"
+                            Thumb.DragCompleted="Slider_DragCompleted"
+                            Thumb.DragStarted="Slider_DragStarted"
+                            >   
+                    </Slider>
                     <TextBlock x:Name="totalTime" d:Text="0:0:0" VerticalAlignment="Center" Margin="10 0" FontSize="18" Foreground="White"/>
 
                     <Button Style="{StaticResource playerButton}" Click="Shuffle_Click">
@@ -139,7 +154,9 @@
                         <Icon:PackIconMaterial Kind="{Binding ElementName=volumeBtn, Path=Tag}" Style="{StaticResource playerButtonIcon}"/>
                     </Button>
                     <Slider Style="{DynamicResource SliderStyle1}" x:Name="sliderVolume" IsSelectionRangeEnabled="True" VerticalAlignment="Center" 
-                            Value="10" Width="120" SelectionEnd="{Binding ElementName=sliderVolume, Path=Value}" ValueChanged="SliderVolume_ValueChanged"/>
+                            Value="5" Width="120" SelectionEnd="{Binding ElementName=sliderVolume, Path=Value}"
+                            IsMoveToPointEnabled="True" ValueChanged="SliderVolume_ValueChanged"
+                            AutoToolTipPlacement="TopLeft"/>
                 </StackPanel>
             </Border>
 

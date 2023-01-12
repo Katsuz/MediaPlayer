@@ -24,6 +24,8 @@ using System.Windows.Controls.Primitives;
 using Newtonsoft.Json;
 using MediaPlayerProject.Converter;
 using Newtonsoft.Json.Linq;
+using NHotkey.Wpf;
+using NHotkey;
 
 namespace MediaPlayerProject
 {
@@ -39,6 +41,7 @@ namespace MediaPlayerProject
         private System.Windows.Controls.Button curBtn;
         public MediaPlayer Player = new MediaPlayer();
         public DispatcherTimer Timer;
+
         private ObservableCollection<DataClass.Playlist> listOfPlaylists = new ObservableCollection<DataClass.Playlist>();
         public MediaPlayerProject.DataClass.Playlist CurPlaylist { get; set; }
 
@@ -52,6 +55,7 @@ namespace MediaPlayerProject
 
         public ObservableCollection<Song> NextList { get; set; }
         public ObservableCollection<Song> PreviousList { get; set; }
+        public ObservableCollection<Song> QueueList { get; set; }
         public bool IsRepeat { get; set; }
         public bool IsShuffle { get; set; }
         public void ChangeView(UserControl view)
@@ -89,11 +93,9 @@ namespace MediaPlayerProject
                 ListOfPlaylists = JsonConvert.DeserializeObject<ObservableCollection<DataClass.Playlist>>(listOfPlaylistJson);
                 RecentOpened = ListOfPlaylists[0];
                 RecentPlayed_P = ListOfPlaylists[1];
-                //ListOfPlaylists.RemoveAt(0);
-                //ListOfPlaylists.RemoveAt(0);
                 playlistBox.ItemsSource = listOfPlaylists;
             }
-            catch
+            catch (Exception error)
             {
                 RecentOpened = new MediaPlayerProject.DataClass.Playlist("Recent Opened Songs");
                 RecentOpened.Visibility = "Hidden";
@@ -102,6 +104,21 @@ namespace MediaPlayerProject
                 ListOfPlaylists.Add(RecentOpened);
                 ListOfPlaylists.Add(RecentPlayed_P);
                 playlistBox.ItemsSource = ListOfPlaylists;
+            }
+        }
+
+        private void ReadQueue()
+        {
+            string folder = AppDomain.CurrentDomain.BaseDirectory;
+            string absolutePath = $"{folder}{"/Database/queue.json"}";
+            try
+            {
+                string queueJson = File.ReadAllText(absolutePath);
+                QueueList = JsonConvert.DeserializeObject<ObservableCollection<DataClass.Song>>(queueJson);
+            }
+            catch (Exception error)
+            {
+                QueueList= new ObservableCollection<DataClass.Song>();
             }
         }
 
@@ -132,7 +149,10 @@ namespace MediaPlayerProject
                     }
                 }
 
-                OpenSong(CurSong.AbsolutePath);
+                if (CurSong != null)
+                {
+                    OpenSong(CurSong.AbsolutePath);
+                }    
                 MakeNextList(IsShuffle, false);
                 TimeSpan newPosition = TimeSpan.FromSeconds(settings.P_Hours*3600 + settings.P_Minutes*60 + settings.P_Seconds);
                 Player.Position = newPosition;
@@ -141,12 +161,12 @@ namespace MediaPlayerProject
                 PauseBtn.Visibility = Visibility.Collapsed;
                 PlayBtn.Visibility = Visibility.Visible;
                 Player.Pause();
-                Timer.Stop();
+                
 
                 IsShuffle = settings.IsShuffle;
                 IsRepeat = settings.IsRepeat;
             }
-            catch
+            catch (Exception error)
             {
                 CurPlaylist = RecentOpened;
                 CurSongIndex = -1;
@@ -158,17 +178,90 @@ namespace MediaPlayerProject
             }
         }
 
+
+        private void OnVolumeIncrement(object sender, HotkeyEventArgs e)
+        {
+            sliderVolume.Value++;
+            e.Handled = true;
+        }
+
+        private void OnVolumeDecrement(object sender, HotkeyEventArgs e)
+        {
+            sliderVolume.Value--;
+            e.Handled = true;
+        }
+
+        private void OnNextSong(object sender, HotkeyEventArgs e)
+        {
+            if (CurSongIndex != -1)
+            {
+                UpdateNextList(false, true, false, IsShuffle, IsRepeat);
+                OpenSong(CurSong.AbsolutePath);
+            }
+            e.Handled = true;
+        }
+
+        private void OnPreviousSong(object sender, HotkeyEventArgs e)
+        {
+            if (CurSongIndex != -1)
+            {
+                UpdateNextList(false, false, true, IsShuffle, IsRepeat);
+                OpenSong(CurSong.AbsolutePath);
+            }
+            e.Handled = true;
+        }
+
+        private void OnChangeState(object sender, HotkeyEventArgs e)
+        {
+            if (CurSong.AbsolutePath == null) { return; }
+            if (PauseBtn.Visibility == Visibility.Collapsed)
+            {
+                PlayBtn.Visibility = Visibility.Collapsed;
+                PauseBtn.Visibility = Visibility.Visible;
+                Player.Play();
+                Timer.Start();
+            }
+            else if (PauseBtn.Visibility == Visibility.Visible)
+            {
+                PauseBtn.Visibility = Visibility.Collapsed;
+                PlayBtn.Visibility = Visibility.Visible;
+                Player.Pause();
+                Timer.Stop();
+            }
+            e.Handled = true;
+        }
+
+        private void OnPlay(object sender, HotkeyEventArgs e)
+        {
+            if (CurSong.AbsolutePath == null) { return; }
+            PlayBtn.Visibility = Visibility.Collapsed;
+            PauseBtn.Visibility = Visibility.Visible;
+            Player.Play();
+            Timer.Start();
+            e.Handled = true;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            HotkeyManager.Current.AddOrReplace("VolumeIncrement", Key.Up, ModifierKeys.Control, OnVolumeIncrement);
+            HotkeyManager.Current.AddOrReplace("VolumeDecrement", Key.Down, ModifierKeys.Control, OnVolumeDecrement);
+            HotkeyManager.Current.AddOrReplace("NextSong", Key.Right, ModifierKeys.Control, OnNextSong);
+            HotkeyManager.Current.AddOrReplace("PreviousSong", Key.Left, ModifierKeys.Control, OnPreviousSong);
+            HotkeyManager.Current.AddOrReplace("ChangeState", Key.Space, ModifierKeys.Control, OnChangeState);
+
             curBtn = HomeBtn;
             Player.MediaOpened += Player_MediaOpened;
             Player.MediaEnded += Player_MediaEnded;
+            Player.ScrubbingEnabled = true;
+            slider.DataContext = Player;
+            currentPosition.DataContext = Player;
             ReadData();
             ReadSettings();
-            ListOfPlaylists.RemoveAt(0);
-            ListOfPlaylists.RemoveAt(0);
-
+            ReadQueue();
+            ListOfPlaylists.RemoveAt(1);
+            //ListOfPlaylists.RemoveAt(0);
+            //ListOfPlaylists.RemoveAt(0);
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -316,12 +409,29 @@ namespace MediaPlayerProject
 
             if (next)
             {
+                if (QueueList.Count > 0)
+                {
+                    CurSong = QueueList[0];
+                    QueueList.RemoveAt(0);
+                    return;
+                }    
                 if (NextList.Count == 0)
                 {
                     if (repeat)
                     {
                         MakeNextList(shuffle, true);
                     }
+                    //else if ()
+                    //{
+                    //    CurSong = new Song("Choose a song or a playlist to play!");
+                    //    string messageBoxText = "Your music queue ended.";
+                    //    string caption = "Music Notification";
+                    //    MessageBoxButton button = MessageBoxButton.OK;
+                    //    MessageBoxImage icon = MessageBoxImage.Information;
+                    //    MessageBoxResult result;
+
+                    //    result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                    //}
                     return;
                 }
                 if (PreviousList.Count == 0)
@@ -343,11 +453,17 @@ namespace MediaPlayerProject
                 if (PreviousList.Count == 0) { return; }
                 if (NextList.Count == 0)
                 {
-                    NextList.Insert(0, CurSong);
+                    if (CurPlaylist.ListSong.Contains(CurSong))
+                    {
+                        NextList.Insert(0, CurSong);
+                    }
                 }
                 else if(NextList.First().AbsolutePath != CurSong.AbsolutePath)
                 {
-                    NextList.Insert(0, CurSong);
+                    if (CurPlaylist.ListSong.Contains(CurSong))
+                    {
+                        NextList.Insert(0, CurSong);
+                    }
                 }
 
                 CurSong = PreviousList.Last();
@@ -387,6 +503,12 @@ namespace MediaPlayerProject
                     CurPlaylist = RecentOpened;
                     CurSong = RecentOpened.ListSong[CurSongIndex];
                     OpenSong(CurSong.AbsolutePath);
+
+                    for (int i = CurSongIndex + 1; i < RecentOpened.ListSong.Count; i++)
+                    {
+                        QueueList.Add(RecentOpened.ListSong[i]);
+                    }    
+
                     PauseBtn.Visibility = Visibility.Collapsed;
                     PlayBtn.Visibility = Visibility.Visible;
                     Player.Pause();
@@ -546,10 +668,6 @@ namespace MediaPlayerProject
                 double value = slider.Value;
                 TimeSpan newPosition = TimeSpan.FromSeconds(value);
                 Player.Position = newPosition;
-                Player.Play();
-                Timer.Start();
-                PlayBtn.Visibility = Visibility.Collapsed;
-                PauseBtn.Visibility = Visibility.Visible;
             }
         }
 
@@ -557,10 +675,7 @@ namespace MediaPlayerProject
         {
             if (Player.HasAudio)
             {
-                Player.Pause();
-                Timer.Stop();
-                PlayBtn.Visibility = Visibility.Visible;
-                PauseBtn.Visibility = Visibility.Collapsed;
+
             }
         }
 
@@ -596,17 +711,22 @@ namespace MediaPlayerProject
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             string folder = AppDomain.CurrentDomain.BaseDirectory;
+
             string absolutePath = $"{folder}{"/Database/listOfPlaylists.json"}";
-            listOfPlaylists.Insert(0, RecentOpened);
-            listOfPlaylists.Insert(0, RecentPlayed_P);
+            listOfPlaylists.Insert(1, RecentPlayed_P);
+            //listOfPlaylists.Insert(0, RecentOpened);
             string listOfPlaylistJson = JsonConvert.SerializeObject(listOfPlaylists, Formatting.Indented);
             File.WriteAllText(absolutePath, listOfPlaylistJson);
 
+            absolutePath = $"{folder}{"/Database/queue.json"}";
+            string queueJson = JsonConvert.SerializeObject(QueueList, Formatting.Indented);
+            File.WriteAllText(absolutePath, queueJson);
+
             absolutePath = $"{folder}{"/Database/settings.json"}";
-            DataClass.Settings settingsJson = new Settings(Player.Position.Hours, Player.Position.Minutes, Player.Position.Seconds,
+            DataClass.Settings settings = new Settings(Player.Position.Hours, Player.Position.Minutes, Player.Position.Seconds,
                 IsShuffle, IsRepeat, CurSongIndex, CurPlaylist.Name, CurSong.AbsolutePath);
-            string temp3 = JsonConvert.SerializeObject(settingsJson, Formatting.Indented);
-            File.WriteAllText(absolutePath, temp3);
+            string settingsJson = JsonConvert.SerializeObject(settings, Formatting.Indented);
+            File.WriteAllText(absolutePath, settingsJson);
         }
 
         private void Minisize_Click(object sender, RoutedEventArgs e)
@@ -620,5 +740,8 @@ namespace MediaPlayerProject
                 this.WindowState = WindowState.Normal;
             }
         }
+
+
+
     }   
 }

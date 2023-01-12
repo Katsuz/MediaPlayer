@@ -26,10 +26,32 @@
                 <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter} }" VerticalAlignment="Center" Grid.Column="2" FontSize="15" FontFamily="Gotham" />
         </Grid>
 
+        <TextBlock Text="Next in queue: " Style="{StaticResource TitleDisplay}" Margin="50 10 0 0"/>
 
-        <TextBlock Text="Next: " Style="{StaticResource TitleDisplay}" Margin="50 10 0 0"/>
         <ListView Margin="20 10 0 0" x:Name="NextListView" SelectionMode="Single" BorderThickness="0"
-                  ItemsSource="{Binding NextList}">
+                  ItemsSource="{Binding QueueList}" Height="150">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="30" Margin="60 10 0 0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="0" FontSize="15" FontFamily="Gotham" />
+                        <TextBlock Text="{Binding Singer}" VerticalAlignment="Center" Grid.Column="1" FontSize="15" FontFamily="Gotham"/>
+                        <TextBlock Text="{Binding Duration, Converter={StaticResource durationConverter} }" VerticalAlignment="Center" Grid.Column="2" FontSize="15" FontFamily="Gotham"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <TextBlock Text="Next in playlist: " Style="{StaticResource TitleDisplay}" Margin="50 10 0 0">
+            <TextBlock DataContext="{Binding CurPlaylist}" Text="{Binding Name}" Style="{StaticResource TitleDisplay}" Margin="50, 0, 0, 0"/>
+        </TextBlock>
+        
+        <ListView Margin="20 10 0 0" x:Name="QueueListView" SelectionMode="Single" BorderThickness="0"
+                  ItemsSource="{Binding NextList}" Height="180">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Height="30" Margin="60 10 0 0" >
