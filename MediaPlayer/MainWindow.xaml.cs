@@ -153,6 +153,13 @@ namespace MediaPlayerProject
                 {
                     OpenSong(CurSong.AbsolutePath);
                 }    
+                else
+                {
+                    CurSongIndex = -1;
+                    CurSong = new Song("Choose a Song");
+                    CurSong.IsMp3 = "Visible";
+                    CurSong.IsMp4 = "Collapsed";
+                }    
                 MakeNextList(IsShuffle, false);
                 TimeSpan newPosition = TimeSpan.FromSeconds(settings.P_Hours*3600 + settings.P_Minutes*60 + settings.P_Seconds);
                 Player.Position = newPosition;
