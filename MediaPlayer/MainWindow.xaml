@@ -161,7 +161,7 @@
             </Border>
 
             <!--Main Display-->
-            <Grid Grid.Row="1" Grid.Column="1" Background="Tan" x:Name="MainDisplay">
+            <Grid Grid.Row="1" Grid.Column="1" Background="Transparent" x:Name="MainDisplay">
 
             </Grid>
         </Grid>

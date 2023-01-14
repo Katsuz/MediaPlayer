@@ -13,7 +13,7 @@
         <converter:DurationConverter x:Key="durationConverter"/>
         <converter:BitmapImageToBitmapSourceConverter x:Key="imageSourceConverter"/>
     </UserControl.Resources>
-    <StackPanel Background="White">
+    <StackPanel Background="#FFFACD">
         <TextBlock Text="Now Playing: " Style="{StaticResource TitleDisplay}" Margin="50 100 0 0" />
         <Grid Height="30" Margin="85 10 0 0"  x:Name="NowPlaying_row" DataContext="{Binding CurSong}" >
                 <Grid.ColumnDefinitions>
