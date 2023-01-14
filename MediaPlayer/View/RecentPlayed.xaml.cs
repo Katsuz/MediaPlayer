@@ -47,5 +47,20 @@ namespace MediaPlayerProject.View
             mainWindow.MakeNextList(mainWindow.IsShuffle, false);
             mainWindow.OpenSong(selectedSong.AbsolutePath);
         }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            Button selected = (Button)sender;
+            int songID = (int)selected.Tag;
+            DataClass.Song selectedSong = null;
+            for (int i = 0; i < mainWindow.RecentPlayed_P.ListSong.Count; i++)
+            {
+                if (mainWindow.RecentPlayed_P.ListSong[i].ID == songID)
+                {
+                    selectedSong = mainWindow.RecentPlayed_P.ListSong[i];
+                }
+            }
+            mainWindow.QueueList.Add(selectedSong);
+        }
     }
 }

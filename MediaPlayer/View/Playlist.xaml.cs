@@ -158,5 +158,20 @@ namespace MediaPlayerProject.View
             mainWindow.ChangeView(new Home(mainWindow));
             mainWindow.ChangeCurBtnTo(mainWindow.HomeBtn);
         }
+
+        private void AddSingle_Click(object sender, RoutedEventArgs e)
+        {
+            Button selected = (Button)sender;
+            int songID = (int)selected.Tag;
+            DataClass.Song selectedSong = null;
+            for (int i = 0; i < playlist.ListSong.Count; i++)
+            {
+                if (playlist.ListSong[i].ID == songID)
+                {
+                    selectedSong = playlist.ListSong[i];
+                }
+            }
+            mainWindow.QueueList.Add(selectedSong);
+        }
     }
 }
