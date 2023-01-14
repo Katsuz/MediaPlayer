@@ -14,7 +14,7 @@
         <converter:DurationConverter x:Key="durationConverter"/>
         <converter:BitmapImageToBitmapSourceConverter x:Key="imageSourceConverter"/>
     </UserControl.Resources>
-    <Grid Background="White">
+    <Grid Background="#FFFACD">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1.5*"/>

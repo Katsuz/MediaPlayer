@@ -7,7 +7,7 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="830">
-    <Grid Background="White" DataContext="{Binding CurSong}">
+    <Grid Background="#FFFACD" DataContext="{Binding CurSong}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="7*"/>
