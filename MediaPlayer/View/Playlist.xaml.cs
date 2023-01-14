@@ -115,7 +115,7 @@ namespace MediaPlayerProject.View
             var openFileScreen = new OpenFileDialog
             {
                 Multiselect = true,
-                Filter = "Sound Files|*.mp3",
+                Filter = "Sound Files|*.mp3| Video Files|*.mp4",
                 DefaultExt = ".mp3",
                 //InitialDirectory = @"C:\",
                 Title = "Please select music to be played."
