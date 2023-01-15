@@ -646,6 +646,10 @@ namespace MediaPlayerProject
             {
                 RecentPlayed_P.ListSong.Insert(0, song);
             }
+            if (RecentPlayed_P.ListSong.Count > 30)
+            {
+                RecentPlayed_P.ListSong.Remove(RecentPlayed_P.ListSong.Last());
+            }    
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)

@@ -32,11 +32,11 @@ namespace MediaPlayerProject.View
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             Button selected = (Button)sender;
-            int songID = (int)selected.Tag;
+            string songAbsolutePath = (string)selected.Tag;
             DataClass.Song selectedSong = null;
             for (int i = 0; i < mainWindow.RecentPlayed_P.ListSong.Count; i++)
             {
-                if (mainWindow.RecentPlayed_P.ListSong[i].ID == songID)
+                if (mainWindow.RecentPlayed_P.ListSong[i].AbsolutePath == songAbsolutePath)
                 {
                     selectedSong = mainWindow.RecentPlayed_P.ListSong[i];
                 }
@@ -51,11 +51,11 @@ namespace MediaPlayerProject.View
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             Button selected = (Button)sender;
-            int songID = (int)selected.Tag;
+            string songAbsolutePath = (string)selected.Tag;
             DataClass.Song selectedSong = null;
             for (int i = 0; i < mainWindow.RecentPlayed_P.ListSong.Count; i++)
             {
-                if (mainWindow.RecentPlayed_P.ListSong[i].ID == songID)
+                if (mainWindow.RecentPlayed_P.ListSong[i].AbsolutePath == songAbsolutePath)
                 {
                     selectedSong = mainWindow.RecentPlayed_P.ListSong[i];
                 }
