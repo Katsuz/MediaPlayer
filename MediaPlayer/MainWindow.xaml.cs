@@ -509,6 +509,7 @@ namespace MediaPlayerProject
                 {
                     CurPlaylist = RecentOpened;
                     CurSong = RecentOpened.ListSong[CurSongIndex];
+                    Console.WriteLine(CurSong.Name);
                     OpenSong(CurSong.AbsolutePath);
 
                     for (int i = CurSongIndex + 1; i < RecentOpened.ListSong.Count; i++)
@@ -516,10 +517,10 @@ namespace MediaPlayerProject
                         QueueList.Add(RecentOpened.ListSong[i]);
                     }    
 
-                    PauseBtn.Visibility = Visibility.Collapsed;
-                    PlayBtn.Visibility = Visibility.Visible;
-                    Player.Pause();
-                    Timer.Stop();
+                    //PauseBtn.Visibility = Visibility.Collapsed;
+                    //PlayBtn.Visibility = Visibility.Visible;
+                    //Player.Pause();
+                    //Timer.Stop();
                     UpdateNextList(true, false, false, IsShuffle, IsRepeat);
                 }
             }

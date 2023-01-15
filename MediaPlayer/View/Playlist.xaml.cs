@@ -40,6 +40,7 @@ namespace MediaPlayerProject.View
         private void PlayAll_Click(object sender, RoutedEventArgs e)
         {
             if (playlist.ListSong.Count == 0) { return; }
+            mainWindow.QueueList.Clear();
             mainWindow.CurPlaylist = playlist;
             mainWindow.CurSongIndex = 0;
             mainWindow.CurSong = playlist.ListSong[0];
